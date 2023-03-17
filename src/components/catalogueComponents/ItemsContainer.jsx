@@ -1,0 +1,87 @@
+import { useItems } from '../../core/hooks';
+import { BarLoader } from 'react-spinners';
+import { useContext } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import Context from '../../context/Context';
+import { formatPrice } from '../../core/utils';
+
+export default function ItemsContainer() {
+  const getProducts = useItems();
+  const items = getProducts.data?.products ?? [];
+  const [search] = useSearchParams();
+
+  const { addedItem } = useContext(Context);
+  const navigate = useNavigate();
+
+  const filteredColors = search.get('colors')?.split(',') ?? [];
+  const maxPrice = parseFloat(search.get('price') ?? 0);
+
+  const filteredItems = items.filter(
+    (item) =>
+      (!filteredColors.length || filteredColors.includes(item.color)) &&
+      (!maxPrice || item.price <= maxPrice)
+  );
+
+  if (getProducts.isLoading) {
+    return (
+      <div className="flex w-75">
+        <BarLoader height={8} width="100%" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-75 mx-auto items-container">
+      <div className="flex flex-wrap product-grid pt2 justify-center items-center">
+        {filteredItems.map((item) => {
+          return (
+            <div key={item.item_id} className="w-100 w-50-l ph3 mb-mobile">
+              <div className="link black hover-light-purple">
+                <div className="flex flex-column h-100">
+                  <img
+                    style={{ objectFit: 'cover', height: '420px' }}
+                    alt=""
+                    loading="lazy"
+                    className="img flex-auto bg-gray flex justify-center items-center"
+                    src={item.src}
+                  />
+
+                  <div className="pt3 pb5 flex flex-column">
+                    <b className="mb1">{item.name}</b>
+                    <i className="mb3 gray">{item.short_description}</i>
+                    <span>Marca: {item.brand}</span>
+                    <span>Talla: {item.size}</span>
+                    <span>Color: {item.color}</span>
+                    
+
+                    <p className="ma0 b black">Precio Arriendo: {formatPrice(item.price)}</p>
+                  </div>
+
+                  <div className="flex flex-col justify-center items-center space-y-4">
+                    <div className="w-50">
+                      <button
+                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => navigate(`/items/${item.id}`)}
+                      >
+                        Ver Mas
+                      </button>
+                    </div>
+                    <div className="w-50">
+                      <button
+                        className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mb-20"
+                        onClick={() => addedItem(item)}
+                      >
+                        Añadir
+                      </button>
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
