@@ -8,6 +8,7 @@ import ColorFilters from '../components/catalogueComponents/ColorFilters';
 import PriceFilter from '../components/catalogueComponents/PriceFilter';
 import SizeFilters from '../components/catalogueComponents/SizeFilters';
 import BrandFilter from '../components/catalogueComponents/BrandFilter';
+import IndependentDesignerFilter from '../components/catalogueComponents/IndependentDesignerFilter';
 
 
 export default function Root() {
@@ -92,6 +93,8 @@ export default function Root() {
             <SizeFilters />
 
             <BrandFilter />
+
+            <IndependentDesignerFilter/>
 
             <PriceFilter maxPrice={maxPrice} />
           </div>

@@ -15,12 +15,19 @@ export default function ItemsContainer() {
 
   const filteredColors = search.get('colors')?.split(',') ?? [];
   const maxPrice = parseFloat(search.get('price') ?? 0);
+  const independentDesigner = search.get('independentDesigner') === 'true';
 
-  const filteredItems = items.filter(
-    (item) =>
-      (!filteredColors.length || filteredColors.includes(item.color)) &&
-      (!maxPrice || item.price <= maxPrice)
-  );
+const filteredItems = items.filter((item) => {
+  if (independentDesigner && !item.independent_designer_dress) return false;
+  if (filteredColors.length && !filteredColors.includes(item.color)) return false;
+  if (maxPrice && item.price > maxPrice) return false;
+
+  return true;
+});
+  
+
+  
+  
 
   if (getProducts.isLoading) {
     return (
@@ -29,6 +36,10 @@ export default function ItemsContainer() {
       </div>
     );
   }
+
+
+
+
 
   return (
     <div className="w-75 mx-auto items-container">
@@ -73,7 +84,7 @@ export default function ItemsContainer() {
                       >
                         Añadir
                       </button>
-                      <hr />
+                      <hr className='mb-5'/>
                     </div>
                   </div>
                 </div>

@@ -303,3 +303,84 @@ nav {
     display: none;
   }
 }
+
+
+
+
+/* Estilos para AdminProducts */
+
+.admin-products {
+  margin: auto;
+  max-width: 500px;
+}
+
+.admin-products h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-products form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-products form input[type="text"],
+.admin-products form input[type="number"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.admin-products form input[type="checkbox"] {
+  margin-top: 0.75rem;
+}
+
+.admin-products form button {
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-products form button:hover {
+  background-color: #43a047;
+}
+
+.admin-products ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-products li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.admin-products li button {
+  background-color: #f44336;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-products li button:hover {
+  background-color: #e53935;
+}

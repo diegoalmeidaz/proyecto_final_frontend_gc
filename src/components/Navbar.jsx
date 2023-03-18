@@ -93,7 +93,7 @@ const Navbar = () => {
           <div className="flex items-center">
             {isLoggedIn ? (
               <>
-                <Link to="/ruta-a-la-pagina-especifica">
+                <Link to="/ruta-a-la-pagina-especifica" className="cursor-pointer">
                   <span className="text-red-500 text-lg mr-4 font-bold">
                     Guapa {user ? user.name : ""}
                   </span>

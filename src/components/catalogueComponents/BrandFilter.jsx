@@ -16,11 +16,16 @@ export default function BrandFilter() {
   const allBrands = getUniqueValues(items, 'brand');
   const groupedItems = allBrands
     .map((brand) => ({
-      label: brand,
-      name: brand,
-      value: brand,
+      label: brand || 'Sin marca',
+      name: brand || 'Sin marca',
+      value: brand || 'Sin marca',
     }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => {
+      if (a.name === null && b.name === null) return 0;
+      if (a.name === null) return -1;
+      if (b.name === null) return 1;
+      return a.name.localeCompare(b.name);
+    });
   const onBrandChange = (brand) => (checked) => {
     let _brands = brands.slice();
 
