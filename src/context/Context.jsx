@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { apiClient } from "../core/api_items";
 import { onLogout, onGetUser } from "../core/api_users";
+import { getUserInfo } from "../core/api_users";
 
 const Context = createContext();
 
@@ -25,9 +26,9 @@ const ContextProvider = ({ children }) => {
 
   const checkUser = async () => {
     try {
-      const { data } = await onGetUser();
-      if (data) {
-        setUser(data);
+      const user = await getUserInfo(); // Cambiar aquí
+      if (user) {
+        setUser(user);
         setIsLoggedIn(true);
       }
     } catch (error) {
@@ -35,6 +36,18 @@ const ContextProvider = ({ children }) => {
       setUser(null);
     }
   };
+  
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isLoggedIn) {
+        const user = await getUserInfo();
+        setUser(user);
+      }
+    };
+  
+    fetchUser();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     getProducts();

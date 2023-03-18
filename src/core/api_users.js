@@ -26,4 +26,12 @@ export async function onGetUser() {
   return await axios.get('http://localhost:8000/users/get-users')
 }
 
-
+export async function getUserInfo() {
+  try {
+    const response = await axios.get('http://localhost:8000/users/me');
+    return response.data.user;
+  } catch (error) {
+    console.error('Error al obtener la información del usuario:', error);
+    return null;
+  }
+}

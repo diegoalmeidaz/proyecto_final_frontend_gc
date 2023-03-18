@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Context from "../context/Context";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/img/logo_gc_sin_fondo_100x100.png";
 
 const Navbar = () => {
   const { user, isLoggedIn, handleLogout } = useContext(Context);
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart } = useContext(Context);
   const total = cart.reduce((a, { count, price }) => a + price * count, 0);
+  console.log("User object:", user);
 
   const logout = (e) => {
     e.preventDefault();
@@ -25,15 +27,19 @@ const Navbar = () => {
   }, [isLoggedIn]);
 
   return (
-    <nav className="bg-blue-500 shadow-lg">
+    <nav className="bg-pink-100 shadow-lg">
       <div className="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
           <div>
             <Link
-              className="text-white text-2xl font-bold md:text-3xl hover:text-gray-300"
+              className="text-red-700 text-2xl font-bold md:text-3xl hover:text-gray-300"
               to="/"
             >
-              👗 Guapa Carlota
+              <img
+                src={Logo}
+                alt="Guapa Carlota logo"
+                className="mr-2 h-8 w-8 md:h-12 md:w-12"
+              />
             </Link>
           </div>
 
@@ -62,49 +68,52 @@ const Navbar = () => {
         >
           <div className="flex flex-col md:flex-row md:mx-6">
             <Link
-              className="my-1 text-white text-lg md:mx-4 md:my-0 hover:text-gray-400"
+              className="my-1 text-red-500 text-lg md:mx-4 md:my-0 hover:text-red-700"
               to="/"
             >
-              Inicio
+              Como Funciona
             </Link>
             <Link
-              className="my-1 text-white text-lg md:mx-4 md:my-0 hover:text-gray-400"
+              className="my-1 text-red-500 text-lg md:mx-4 md:my-0 hover:text-red-700"
               to="/dresses"
             >
               Catálogo
             </Link>
             <Link
-              className="my-1 text-white text-lg md:mx-4 md:my-0 hover:text-gray-400"
+              className="my-1 text-red-500 text-lg md:mx-4 md:my-0 hover:text-red-700"
               to="/cart"
             >
-              🛒 Total:{" "}
+              🗓️ Total:{" "}
               {total.toLocaleString("es-CL", {
                 style: "currency",
                 currency: "CLP",
               })}
             </Link>
-            
           </div>
           <div className="flex items-center">
             {isLoggedIn ? (
               <>
-                <span className="text-white text-lg mr-4">{user ? user.name : ''}</span>
+                <Link to="/ruta-a-la-pagina-especifica">
+                  <span className="text-red-500 text-lg mr-4 font-bold">
+                    Guapa {user ? user.name : ""}
+                  </span>
+                </Link>
 
                 <button
                   onClick={logout}
-                  className="text-white bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-500"
+                  className="text-white bg-red-500 px-4 py-2 rounded-lg hover:bg-red-700"
                 >
                   Logout
-          </button>
-        </>
-      ) : (
-        <Link to="/login">
-          <button className="text-white bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-500">
-            Login
-          </button>
-        </Link>
-      )}
-    </div>
+                </button>
+              </>
+            ) : (
+              <Link to="/login">
+                <button className="text-white bg-red-500 px-4 py-2 rounded-lg hover:bg-red-700">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>
