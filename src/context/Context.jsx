@@ -36,6 +36,15 @@ const ContextProvider = ({ children }) => {
       setUser(null);
     }
   };
+
+  const updateUser = async () => {
+    try {
+      const userInfo = await getUserInfo();
+      setUser(userInfo);
+    } catch (error) {
+      console.error("Error al actualizar la información del usuario:", error);
+    }
+  };
   
 
   useEffect(() => {
@@ -114,6 +123,7 @@ const ContextProvider = ({ children }) => {
         handleLogout,
         checkUser,
         handleLogin,
+        updateUser
       }}
     >
       {children}

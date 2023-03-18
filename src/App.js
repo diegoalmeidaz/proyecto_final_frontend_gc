@@ -21,19 +21,13 @@ import store from "./core/store";
 import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 import Cart from "./pages/Cart";
-import AdminProducts from "./pages/AdminProducts";
 import Success from "./components/Success";
+import AdminDashboard from "./pages/AdminDashboard"
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
 
-  return isAuth ? (
-    <>
-      {children}
-    </>
-  ) : (
-    <Navigate to="/login" replace />
-  );
+  return isAuth ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 const RestrictedRoutes = () => {
@@ -59,7 +53,7 @@ function App() {
                     path="/dashboard"
                     element={
                       <PrivateRoutes>
-                        <AdminProducts />
+                        <AdminDashboard />
                       </PrivateRoutes>
                     }
                   />
