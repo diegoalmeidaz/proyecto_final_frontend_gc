@@ -38,7 +38,7 @@ export const getUserRole = () => async (dispatch) => {
   try {
     const { data } = await onGetUser()
     if (data) {
-      dispatch(setUserRole(data.rol))
+      dispatch(setUserRole(data.role))
     }
   } catch (error) {
     console.log(error)

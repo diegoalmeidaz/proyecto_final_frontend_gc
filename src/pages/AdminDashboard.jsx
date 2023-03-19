@@ -10,7 +10,7 @@ import Context from "../context/Context"
 
 function AdminDashboard() {
   const { user } = useContext(Context);
-  const userRole = user ? user.rol : "renter";
+  const userRole = user ? user.role : "renter";
 
   return (
     <div
@@ -26,30 +26,30 @@ function AdminDashboard() {
     >
       <div className="bg-white p-6 rounded-md shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center">
-          Dashboard del administrador
+          Centro de Comando Carlota
         </h1>
         <p className="text-center mb-8">
-          Bienvenido al panel de administración. Desde aquí podrás gestionar
-          productos, órdenes de trabajo y usuarios del sitio.
+          Bienvenido al centro de comando de Guapa Carlota. Desde aquí podrás gestionar
+          productos, actualizar tu informacion, ver tus ordenes pasadas y prontamente mas opciones!!
         </p>
         <div className="flex flex-wrap justify-center">
           <div className="text-center m-2">
             <Link
-              to="/admin/product-create"
+              to="/create_product"
               className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
             >
               <FaPlus />
             </Link>
-            <p>Crear producto</p>
+            <p>Crear Vestido Para Arriendo</p>
           </div>
           <div className="text-center m-2">
             <Link
-              to="/admin/cards"
+              to="/admin_catalogue_view"
               className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
             >
               <FaEdit />
             </Link>
-            <p>Editar productos</p>
+            <p>Editar tus vestidos</p>
           </div>
           {userRole === "admin" && (
             <>
@@ -69,7 +69,7 @@ function AdminDashboard() {
                 >
                   <FaUserFriends />
                 </Link>
-                <p>Usuarios</p>
+                <p>Ver Todos los Usuarios</p>
               </div>
             </>
           )}

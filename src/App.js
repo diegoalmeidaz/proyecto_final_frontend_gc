@@ -22,8 +22,10 @@ import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 import Cart from "./pages/Cart";
 import Success from "./components/Success";
-import AdminDashboard from "./pages/AdminDashboard"
-import AdminProductCreation from "./pages/AdminOps/AdminProductCreation"
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProductCreation from "./pages/AdminOps/AdminProductCreation";
+import AdminCards from "./pages/AdminOps/AdminCards";
+import AdminProductsEdition from "./pages/AdminOps/AdminProductsEdition";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -59,7 +61,7 @@ function App() {
                     }
                   />
 
-<Route
+                  <Route
                     path="/create_product"
                     element={
                       <PrivateRoutes>
@@ -67,6 +69,26 @@ function App() {
                       </PrivateRoutes>
                     }
                   />
+
+<Route
+                    path="/admin_catalogue_view"
+                    element={
+                      <PrivateRoutes>
+                        <AdminCards />
+                      </PrivateRoutes>
+                    }
+                  />
+
+<Route
+                    path="/admin_product_edition"
+                    element={
+                      <PrivateRoutes>
+                        <AdminProductsEdition />
+                      </PrivateRoutes>
+                    }
+                  />
+
+
 
                   <Route
                     path="/cart"

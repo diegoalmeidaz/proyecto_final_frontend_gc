@@ -15,6 +15,7 @@ export async function getItems() {
 }
 
 export async function createItem(itemData) {
+  console.log("Item data to be sent:", itemData); // agregamos este console log para ver si esta mandando los datos necesarios
   const response = await apiClient.post('/items', itemData);
   return response.data;
 }
