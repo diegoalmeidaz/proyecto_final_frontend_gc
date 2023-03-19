@@ -25,7 +25,7 @@ import Success from "./components/Success";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProductCreation from "./pages/AdminOps/AdminProductCreation";
 import AdminCards from "./pages/AdminOps/AdminCards";
-import AdminProductsEdition from "./pages/AdminOps/AdminProductsEdition";
+import AdminProductsUpdate from "./pages/AdminOps/AdminProductsUpdate";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -80,13 +80,13 @@ function App() {
                   />
 
 <Route
-                    path="/admin_product_edition"
-                    element={
-                      <PrivateRoutes>
-                        <AdminProductsEdition />
-                      </PrivateRoutes>
-                    }
-                  />
+  path="/admin_product_update/:item_id"
+  element={
+    <PrivateRoutes>
+      <AdminProductsUpdate />
+    </PrivateRoutes>
+  }
+/>
 
 
 

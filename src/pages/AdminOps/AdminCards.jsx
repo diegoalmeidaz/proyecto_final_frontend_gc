@@ -42,7 +42,6 @@ function AdminCards() {
           <ColorFilters />
           <SizeFilters />
           <BrandFilter />
-          
         </div>
         <div className="w-full md:w-3/4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 product-grid pt-2 justify-center items-center">
@@ -73,7 +72,7 @@ function AdminCards() {
                   </div>
 
                   <div className="flex justify-center items-center space-y-4 pb-4">
-                    <a href="/admin_product_edition">
+                    <a href={`/admin_product_update/${product.item_id}`}>
                       <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
                         Editar producto
                       </button>
@@ -90,4 +89,3 @@ function AdminCards() {
 }
 
 export default AdminCards;
-

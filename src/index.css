@@ -404,3 +404,13 @@ nav {
     flex-basis: 48%;
   }
 }
+
+
+.gray-switch {
+  background-color: #ccc;
+  border-radius: 999px;
+  padding: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
