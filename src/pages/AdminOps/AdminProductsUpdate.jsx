@@ -1,13 +1,17 @@
+
+// recordar que como la funcionalidad de los favoritos aun no esta en linea tuvimos que dejar el is_liked como falso cada vez que se envia el request.
+// Cuando se habilite el modulo hay que hacer generar un checkbox para esto.
+// tuve que dejarlo asi para cuando mandara la consulta no se cayera porque se estaba mandando un dato vacio y la consulta se caia. 
+
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Context from "../../context/Context";
-
-import { getSingleItem, updateItem, createItem } from "../../core/api_items";
-import axios from "axios";
+import { getSingleItem, updateItem, deleteItem } from "../../core/api_items";
 import FormInput from "../../components/AdminOpsComponents/FormInput";
 import FormTextarea from "../../components/AdminOpsComponents/FormTarea";
 import FormCheckbox from "../../components/AdminOpsComponents/FormCheckbox";
 import Switch from "react-switch";
+import axios from "axios"
 
 const fields = [
   { id: "name", label: "Nombre", type: "text", required: true },
@@ -64,15 +68,20 @@ const fields = [
 ];
 
 function AdminProductUpdate() {
-  const { item_id } = useParams(); // Obtén el item_id de la ruta.
+  const { item_id } = useParams();
   const [productToUpdate, setProductToUpdate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
-      const product = await getSingleItem(item_id);
-      setProductToUpdate(product);
+      try {
+        const product = await getSingleItem(item_id);
+        setProductToUpdate(product);
+      } catch (error) {
+        console.error("Error al obtener el producto:", error);
+        alert("Hubo un error al obtener el producto");
+      }
       setIsLoading(false);
     };
 
@@ -84,7 +93,7 @@ function AdminProductUpdate() {
       ...acc,
       [field.id]: field.type === "checkbox" ? false : "",
     }),
-    {}
+    { availability: false } // Agrega "availability" al objeto initialValues
   );
 
   const [formData, setFormData] = useState(initialValues);
@@ -111,13 +120,100 @@ function AdminProductUpdate() {
   const [loading, setLoading] = useState(true);
   const isUpdate = !!productToUpdate;
 
+  const updateFormData = (product) => {
+    const updatedProduct = {};
+  
+    for (const key in product) {
+      updatedProduct[key] = product[key] === null ? "" : product[key];
+    }
+  
+    setFormData(updatedProduct);
+  };
+  
+
+  
+
+  useEffect(() => {
+    if (user !== null) {
+      setLoading(false);
+    }
+    if (isUpdate) {
+      updateFormData(productToUpdate);
+    }
+  }, [user, productToUpdate, isUpdate]);
+
+  
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    let newItem = {
+      ...formData,
+      user_id: user.user_id,
+     
+      renter_name: user.name,
+      renter_lastname: user.lastname,
+      renter_email: user.email,
+      is_liked: formData.is_liked
+      
+    };
+  
+    if (user.role === "renter") {
+      newItem = {
+        ...newItem,
+        price: formData.price,
+        renters_commision: formData.renters_commision,
+        safe_deposit: formData.safe_deposit,
+        laundry_charge: formData.laundry_charge,
+        is_liked: formData.is_liked  // este fue el fix, sin embargo esto tiene que mantenerse dinamico, 
+      };
+    }
+  
+    console.log("Datos del formulario:", newItem);
+    try {
+      if (productToUpdate) {
+        await updateItem(item_id, newItem);
+        alert("Producto actualizado con éxito");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el producto:", error);
+      if (error.response) {
+        // El servidor respondió con un código de estado que no está en el rango de 2xx
+        console.log("Datos de la respuesta del servidor:", error.response.data);
+        console.log("Código de estado:", error.response.status);
+        console.log("Encabezados:", error.response.headers);
+      } else if (error.request) {
+        // La solicitud se realizó pero no se recibió ninguna respuesta
+        console.log("Datos de la solicitud:", error.request);
+      } else {
+        // Algo ocurrió al configurar la solicitud que provocó un error
+        console.log("Error en la configuración de la solicitud:", error.message);
+      }
+      alert("Error al actualizar el producto");
+    }
+  };
+  
+
+  const handleDelete = async () => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+      try {
+        await deleteItem(item_id);
+        alert("Producto eliminado correctamente");
+      } catch (error) {
+        console.error("Error al eliminar el producto:", error);
+        alert("Hubo un error al eliminar el producto");
+      }
+    }
+  };
+
   const toggleAvailability = async () => {
     try {
       // Cambia el estado de disponibilidad
       const newAvailability = !formData.availability;
 
       // Realiza la solicitud PUT para actualizar la disponibilidad del producto
-      await axios.put(`http://localhost:8000/items/${formData.item_id}`, {
+      await axios.put(`http://localhost:8000/items/${item_id}`, {
+
         availability: newAvailability,
       });
 
@@ -133,52 +229,6 @@ function AdminProductUpdate() {
         error
       );
       alert("Hubo un error al actualizar la disponibilidad del producto");
-    }
-  };
-
-  useEffect(() => {
-    if (user !== null) {
-      setLoading(false);
-    }
-    if (isUpdate) {
-      setFormData(productToUpdate);
-    }
-  }, [user, productToUpdate, isUpdate]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // ... Aquí iría el código para definir "newItem" sin cambios
-    let newItem = {
-      ...formData,
-      user_id: user.user_id,
-      role_id: user.role,
-      renter_name: user.name,
-      renter_lastname: user.lastname,
-      renter_email: user.email,
-    };
-
-    if (user.role === "renter") {
-      newItem = {
-        ...newItem,
-        price: formData.price,
-        renters_commision: formData.renters_commision,
-        safe_deposit: formData.safe_deposit,
-        laundry_charge: formData.laundry_charge,
-      };
-    }
-
-    console.log("Datos del formulario:", newItem);
-    try {
-      if (isUpdate) {
-        await updateItem(newItem);
-        alert("Producto actualizado con éxito");
-      } else {
-        await createItem(newItem);
-        alert("Producto creado con éxito");
-        setFormData(initialValues);
-      }
-    } catch (error) {
-      alert(`Error al ${isUpdate ? "actualizar" : "crear"} el producto`);
     }
   };
 
@@ -199,14 +249,9 @@ function AdminProductUpdate() {
           <h1 className="text-2xl font-bold mb-4 text-center text-red-500">
             Modificar Producto
           </h1>
-          {/* Agrega un componente para mostrar la imagen del producto */}
           {formData.src && (
             <div className="mb-4">
-              <img
-                src={formData.src}
-                alt={formData.name}
-                className="mx-auto w-full h-64 object-cover object-center"
-              />
+              
             </div>
           )}
           <form onSubmit={handleSubmit}>
@@ -252,38 +297,52 @@ function AdminProductUpdate() {
               }
               return null;
             })}
-            <div className="flex justify-between items-center">
-              <label htmlFor="availability" className="mr-4">
-                {formData.availability
-                  ? "Producto disponible"
-                  : "Producto no disponible"}
-              </label>
-              <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                <Switch
-                  onChange={toggleAvailability}
-                  checked={formData.availability}
-                  offColor="#ccc"
-                  onColor="#32CD32" // Color verde cuando esté activado
-                  className="react-switch gray-switch"
-                  height={22}
-                  width={48}
-                  handleDiameter={24}
-                />
-                
+             {user.role === "admin" && (
+            <>
+              <div className="flex justify-between items-center">
+                <label htmlFor="availability" className="mr-4">
+                  {formData.availability
+                    ? "Producto disponible"
+                    : "Producto no disponible"}
+                </label>
+                <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                  <Switch
+                    onChange={toggleAvailability}
+                    checked={formData.availability}
+                    offColor="#ccc"
+                    onColor="#32CD32" // Color verde cuando esté activado
+                    className="react-switch gray-switch"
+                    height={22}
+                    width={48}
+                    handleDiameter={24}
+                  />
+                </div>
               </div>
-            </div>
-
+            </>
+          )}
+          <button
+            type="submit"
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 w-full"
+          >
+            {isUpdate ? "Actualizar" : "Crear"} producto
+          </button>
+          {user.role === "admin" && isUpdate && (
             <button
-              type="submit"
+              type="button"
+              onClick={handleDelete}
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 w-full"
             >
-              {isUpdate ? "Actualizar" : "Crear"} producto
+              Eliminar producto
             </button>
-          </form>
-        </div>
+          )}
+        </form>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default AdminProductUpdate;
+
+
+

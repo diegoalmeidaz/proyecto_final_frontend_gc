@@ -15,7 +15,7 @@ const Navbar = () => {
   const logout = (e) => {
     e.preventDefault();
     handleLogout();
-    navigate("/login");
+    navigate("/logoutsucces");
   };
 
   const toggleMobileMenu = () => {
@@ -99,12 +99,14 @@ const Navbar = () => {
                   </span>
                 </Link>
 
+               
                 <button
                   onClick={logout}
                   className="text-white bg-red-500 px-4 py-2 rounded-lg hover:bg-red-700"
                 >
                   Logout
                 </button>
+               
               </>
             ) : (
               <Link to="/login">

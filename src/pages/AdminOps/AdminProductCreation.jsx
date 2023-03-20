@@ -97,12 +97,14 @@ function CreateProduct() {
         renters_commision: formData.renters_commision || 0,
         safe_deposit: formData.safe_deposit || 0,
         laundry_charge: formData.laundry_charge || 0,
+        is_like: formData.is_like || false,
         };
       }
 
 
     
       console.log("Datos del formulario:", newItem);
+      console.log("Valor de brand en newItem:", newItem.brand);
       try {
         await createItem(newItem);
         alert("Producto creado con éxito");

@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Context from '../context/Context';
+import { onLogout } from '../core/api_users';
 
-const Success = () => {
+const LogoutSuccess = () => {
   const navigate = useNavigate();
-  const {user} = useContext(Context)
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      onLogout(); // Llamada a la función logout que cerrará la sesión del usuario
       navigate('/');
     }, 3000);
 
@@ -17,11 +17,11 @@ const Success = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-semibold mb-4 text-green-600">¡Éxito! Te has logueado correctamente {user ? user.name : ''}!</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-red-500">Has cerrado sesión correctamente</h1>
         <p className="text-gray-600">Serás redirigido a la página principal en unos segundos...</p>
       </div>
     </div>
   );
 };
 
-export default Success;
+export default LogoutSuccess;

@@ -5,6 +5,7 @@ import {
   FaEdit,
   FaClipboardList,
   FaUserFriends,
+  FaUserEdit,
 } from "react-icons/fa";
 import Context from "../context/Context"
 
@@ -50,6 +51,14 @@ function AdminDashboard() {
               <FaEdit />
             </Link>
             <p>Editar tus vestidos</p>
+          </div><div className="text-center m-2">
+            <Link
+              to="/admin_catalogue_view"
+              className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
+            >
+              <FaUserEdit />
+            </Link>
+            <p>Modifica Tus Datos</p>
           </div>
           {userRole === "admin" && (
             <>

@@ -26,13 +26,17 @@ function AdminCards() {
     });
   }, []);
 
-  useEffect(() => {
-    const visibleProducts =
-      userRole === "admin"
-        ? products
-        : products.filter((product) => product.user_id === userId);
-    setFilteredProducts(visibleProducts);
+  const visibleProducts = useMemo(() => {
+    return userRole === "admin"
+      ? products
+      : products.filter((product) => product.user_id === userId);
   }, [products, userRole, userId]);
+  
+  useEffect(() => {
+    setFilteredProducts(visibleProducts);
+  }, [visibleProducts]);
+
+  
 
   return (
     <div className="w-75 mx-auto items-container">

@@ -26,6 +26,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminProductCreation from "./pages/AdminOps/AdminProductCreation";
 import AdminCards from "./pages/AdminOps/AdminCards";
 import AdminProductsUpdate from "./pages/AdminOps/AdminProductsUpdate";
+import LogoutSuccess from "./components/LogoutSuccess";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -102,6 +103,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/success" element={<Success />} />
+                  <Route path="/logoutsucces" element={<LogoutSuccess />} />
                 </Routes>
               </div>
               <Footer />

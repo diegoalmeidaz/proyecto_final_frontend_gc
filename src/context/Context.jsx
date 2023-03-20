@@ -26,7 +26,7 @@ const ContextProvider = ({ children }) => {
 
   const checkUser = async () => {
     try {
-      const user = await getUserInfo(); // Cambiar aquí
+      const user = await getUserInfo(); 
       if (user) {
         setUser(user);
         setIsLoggedIn(true);

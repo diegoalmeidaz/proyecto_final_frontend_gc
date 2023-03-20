@@ -20,10 +20,15 @@ export async function createItem(itemData) {
   return response.data;
 }
 
-export async function updateItem(itemId, itemData) {
-  const response = await apiClient.put(`/items/${itemId}`, itemData);
-  return response.data;
-}
+export const updateItem = async (item_id, itemData) => {
+  try {
+    const response = await axios.put(`http://localhost:8000/items/${item_id}`, itemData);
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar el producto:", error);
+    throw error;
+  }
+};
 
 export async function deleteItem(itemId) {
   const response = await apiClient.delete(`/items/${itemId}`);
