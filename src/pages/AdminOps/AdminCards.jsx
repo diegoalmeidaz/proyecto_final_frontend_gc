@@ -8,6 +8,7 @@ import PriceFilter from "../../components/catalogueComponents/PriceFilter";
 import SizeFilters from "../../components/catalogueComponents/SizeFilters";
 import BrandFilter from "../../components/catalogueComponents/BrandFilter";
 import IndependentDesignerFilter from "../../components/catalogueComponents/IndependentDesignerFilter";
+import { useItems } from "../../core/hooks";
 
 function AdminCards() {
   const [products, setProducts] = useState([]);
@@ -15,14 +16,17 @@ function AdminCards() {
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
 
-  useEffect(() => {
-    onGetItems().then((data) => {
-      setProducts(data.products);
+  const { data: itemsData } = useItems();
+  const items = useMemo(() => itemsData?.products ?? [], [itemsData]);
 
-      getUserInfo().then((user) => {
-        setUserRole(user.role);
-        setUserId(user.user_id);
-      });
+  useEffect(() => {
+    setProducts(items);
+  }, [items]);
+
+  useEffect(() => {
+    getUserInfo().then((user) => {
+      setUserRole(user.role);
+      setUserId(user.user_id);
     });
   }, []);
 
@@ -36,7 +40,7 @@ function AdminCards() {
     setFilteredProducts(visibleProducts);
   }, [visibleProducts]);
 
-  
+  const [filtersVisible, setFiltersVisible] = useState(false);
 
   return (
     <div className="w-75 mx-auto items-container">
@@ -47,9 +51,12 @@ function AdminCards() {
           <SizeFilters />
           <BrandFilter />
         </div>
-        <div className="w-full md:w-3/4">
+
+      
+
+        <div className="w-full md:w-3/4"> 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 product-grid pt-2 justify-center items-center">
-            {filteredProducts.map((product) => (
+            {visibleProducts.map((product) => (
               <div
                 key={product.item_id}
                 className="w-full w-50-l p-3 mb-4 bg-white shadow-md rounded block md:inline-block md:max-w-xs"
