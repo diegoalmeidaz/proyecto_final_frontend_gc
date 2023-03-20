@@ -4,7 +4,7 @@
 // tuve que dejarlo asi para cuando mandara la consulta no se cayera porque se estaba mandando un dato vacio y la consulta se caia. 
 
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Context from "../../context/Context";
 import { getSingleItem, updateItem, deleteItem } from "../../core/api_items";
 import FormInput from "../../components/AdminOpsComponents/FormInput";
@@ -71,6 +71,7 @@ function AdminProductUpdate() {
   const { item_id } = useParams();
   const [productToUpdate, setProductToUpdate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -199,6 +200,7 @@ function AdminProductUpdate() {
       try {
         await deleteItem(item_id);
         alert("Producto eliminado correctamente");
+        navigate("/admin_catalogue_view"); // Redirige a la ruta AdminCards
       } catch (error) {
         console.error("Error al eliminar el producto:", error);
         alert("Hubo un error al eliminar el producto");

@@ -35,7 +35,7 @@ function AdminCards() {
       ? products
       : products.filter((product) => product.user_id === userId);
   }, [products, userRole, userId]);
-  
+
   useEffect(() => {
     setFilteredProducts(visibleProducts);
   }, [visibleProducts]);
@@ -52,9 +52,7 @@ function AdminCards() {
           <BrandFilter />
         </div>
 
-      
-
-        <div className="w-full md:w-3/4"> 
+        <div className="w-full md:w-3/4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 product-grid pt-2 justify-center items-center">
             {visibleProducts.map((product) => (
               <div
@@ -73,10 +71,26 @@ function AdminCards() {
                   <div className="pt-3 pb-5 flex flex-col">
                     <b className="mb-1">{product.name}</b>
                     {/* <i className="mb-3 text-gray-500">{product.description}</i> */}
+                    {userRole === "admin" && product.item_id && (
+  <span>
+    ID del producto: {product.item_id}
+  </span>
+)}
                     <span>Marca: {product.brand}</span>
                     <span>Talla: {product.size}</span>
                     <span>Color: {product.color}</span>
-
+                    <span>
+                      {product.availability ? "Habilitado" : "No Habilitado"}
+                    </span>{" "}
+                    {userRole === "admin" &&
+                      product.renter_name &&
+                      product.renter_lastname && (
+                        <span>
+                          Arrendado por: {product.renter_name}{" "}
+                          {product.renter_lastname}
+                        </span>
+                      )}
+                    {/* Agrega esta línea */}
                     <p className="my-0 font-bold text-black">
                       Precio Arriendo: {formatPrice(product.price)}
                     </p>

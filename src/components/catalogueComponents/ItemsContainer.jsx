@@ -17,13 +17,14 @@ export default function ItemsContainer() {
   const maxPrice = parseFloat(search.get('price') ?? 0);
   const independentDesigner = search.get('independentDesigner') === 'true';
 
-const filteredItems = items.filter((item) => {
-  if (independentDesigner && !item.independent_designer_dress) return false;
-  if (filteredColors.length && !filteredColors.includes(item.color)) return false;
-  if (maxPrice && item.price > maxPrice) return false;
-
-  return true;
-});
+  const filteredItems = items.filter((item) => {
+    if (!item.availability) return false; // Añade esta línea para filtrar sólo los items con availability = true
+    if (independentDesigner && !item.independent_designer_dress) return false;
+    if (filteredColors.length && !filteredColors.includes(item.color)) return false;
+    if (maxPrice && item.price > maxPrice) return false;
+  
+    return true;
+  });
   
 
   
