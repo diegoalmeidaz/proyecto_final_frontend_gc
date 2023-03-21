@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { QueryClient } from 'react-query';
+import { apiClient } from './api_base_url';
 
-const apiClient = axios.create({
-  baseURL: "http://localhost:8000/",
-});
+
 
 const queryClient = new QueryClient();
 
-export { apiClient, queryClient };
+export { queryClient };
 
 export async function getItems() {
   const response = await apiClient.get('/items');
@@ -35,10 +34,11 @@ export async function deleteItem(itemId) {
   return response.data;
 }
 
-export async function getSingleItem(itemId) {
-  const response = await apiClient.get(`/items/${itemId}`);
+export async function getSingleItem(item_id) {
+  const response = await apiClient.get(`/items/${item_id}`);
   console.log("getSingleItem response:", response);
   return response.data;
 }
+
 
 

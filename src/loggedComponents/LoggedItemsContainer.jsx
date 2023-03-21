@@ -1,13 +1,14 @@
 import { useItems } from '../core/hooks';
 import { BarLoader } from 'react-spinners';
 import axios from 'axios';
+import { apiClient } from '../core/api_base_url';
 
 export default function LoggedItemsContainer() {
   const getProducts = useItems();
   const products = getProducts.data?.products ?? [];
 
   const like = async (id) => {
-    await axios.put(`http://localhost:3001/items/like/${id}`);
+    await axios.put(`http://localhost:8000/items/like/${id}`);
     getProducts.refetch();
   };
 

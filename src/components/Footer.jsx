@@ -19,7 +19,7 @@ function Footer() {
     const viewportHeight = window.innerHeight;
     const fullHeight = document.body.clientHeight;
   
-    console.log("isHidden:", scrollY > fullHeight * 0.8 - viewportHeight);
+    //console.log("isHidden:", scrollY > fullHeight * 0.8 - viewportHeight);//para ver como se mueve la pantalla
     setIsHidden(scrollY > fullHeight * 0.8 - viewportHeight);
   };
 

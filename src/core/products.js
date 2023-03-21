@@ -1,4 +1,4 @@
-import { apiClient } from './api_items';
+import { apiClient } from './api_base_url';
 
 export async function onGetItems() {
   const response = await apiClient.get('/items');

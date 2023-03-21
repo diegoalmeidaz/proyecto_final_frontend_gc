@@ -41,3 +41,12 @@ export async function getUserInfo() {
     return null;
   }
 }
+
+export async function updateUser(userData) {
+  const token = localStorage.getItem('token');
+  return await axios.put('http://localhost:8000/users/update', userData, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}

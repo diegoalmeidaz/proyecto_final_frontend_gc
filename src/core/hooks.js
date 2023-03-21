@@ -1,8 +1,9 @@
-import { apiClient, getSingleItem } from './api_items';
+import { getSingleItem } from './api_items';
 import { useQuery } from 'react-query';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { getUserInfo } from './api_users';
+import { apiClient } from './api_base_url';
 
 
 export function useItems() {
@@ -59,17 +60,17 @@ export function useAdminItems() {
 
 
 
-export function useSingleItem(itemId) {
+export function useSingleItem(item_id) {
   const { data, error, isLoading } = useQuery(
-    ['singleItem', itemId],
-    () => getSingleItem(itemId),
+    ['singleItem', item_id],
+    () => getSingleItem(item_id),
     {
-      enabled: itemId !== undefined,
+      enabled: item_id !== undefined,
       refetchOnWindowFocus: false,
     }
   );
   console.log('useSingleItem data:', data, 'error:', error, 'isLoading:', isLoading);
-  console.log('useSingleItem itemId:', itemId);
+  console.log('useSingleItem itemId:', item_id);
 
   return {
     item: data,

@@ -11,6 +11,7 @@ import BrandFilter from '../components/catalogueComponents/BrandFilter';
 import IndependentDesignerFilter from '../components/catalogueComponents/IndependentDesignerFilter';
 
 
+
 export default function Root() {
   const [search, setSearch] = useSearchParams();
   const getItems = useItems();

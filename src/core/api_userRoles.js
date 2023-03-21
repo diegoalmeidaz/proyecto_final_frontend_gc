@@ -1,22 +1,21 @@
 import { apiClient } from './api_base_url';
 
-export async function getUserRoles() {
+export async function getUserRolesByUserId(userId) {
   const token = localStorage.getItem('token');
-  const response = await apiClient.get('/roles', {
+  const response = await apiClient.get(`/user_roles/${userId}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
   });
-  return response.data.user_roles;
+  return response.data;
 }
 
-export async function updateUserRoles(roleUser, roleRenter) {
+export async function updateUserRole(userId, newRoleId) {
   const token = localStorage.getItem('token');
   const response = await apiClient.put(
-    '/user_roles',
+    `/user_roles/${userId}`,
     {
-      roleUser,
-      roleRenter,
+      role_id: newRoleId,
     },
     {
       headers: {

@@ -28,6 +28,7 @@ import AdminCards from "./pages/AdminOps/AdminCards";
 import AdminProductsUpdate from "./pages/AdminOps/AdminProductsUpdate";
 import LogoutSuccess from "./components/LogoutSuccess";
 import Detail from "./pages/Detail";
+import UserEdit from "./pages/UserModOps/UserEdit";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -72,7 +73,7 @@ function App() {
                     }
                   />
 
-<Route
+                  <Route
                     path="/admin_catalogue_view"
                     element={
                       <PrivateRoutes>
@@ -81,16 +82,23 @@ function App() {
                     }
                   />
 
-<Route
-  path="/admin_product_update/:item_id"
-  element={
-    <PrivateRoutes>
-      <AdminProductsUpdate />
-    </PrivateRoutes>
-  }
-/>
+                  <Route
+                    path="/admin_product_update/:item_id"
+                    element={
+                      <PrivateRoutes>
+                        <AdminProductsUpdate />
+                      </PrivateRoutes>
+                    }
+                  />
 
-
+                  <Route
+                    path="/user/edit"
+                    element={
+                      <PrivateRoutes>
+                        <UserEdit />
+                      </PrivateRoutes>
+                    }
+                  />
 
                   <Route
                     path="/cart"
@@ -105,7 +113,7 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/success" element={<Success />} />
                   <Route path="/logoutsucces" element={<LogoutSuccess />} />
-                  <Route path="/detail/:itemId" element={<Detail />} />
+                  <Route path="/detail/:item_id" element={<Detail />} />
                 </Routes>
               </div>
               <Footer />

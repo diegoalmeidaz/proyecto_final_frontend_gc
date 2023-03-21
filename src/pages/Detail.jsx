@@ -7,9 +7,9 @@ import Context from "../context/Context";
 import { useState } from "react";
 
 const Detail = () => {
-  const { itemId } = useParams();
+  const { item_id } = useParams();
 
-  const itemsData = useSingleItem(itemId);
+  const itemsData = useSingleItem(item_id);
 
   const productInfo = itemsData.item;
 

@@ -72,10 +72,8 @@ function AdminCards() {
                     <b className="mb-1">{product.name}</b>
                     {/* <i className="mb-3 text-gray-500">{product.description}</i> */}
                     {userRole === "admin" && product.item_id && (
-  <span>
-    ID del producto: {product.item_id}
-  </span>
-)}
+                      <span>ID del producto: {product.item_id}</span>
+                    )}
                     <span>Marca: {product.brand}</span>
                     <span>Talla: {product.size}</span>
                     <span>Color: {product.color}</span>

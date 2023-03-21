@@ -166,7 +166,7 @@ function AdminProductUpdate() {
         renters_commision: formData.renters_commision,
         safe_deposit: formData.safe_deposit,
         laundry_charge: formData.laundry_charge,
-        is_liked: formData.is_liked  // este fue el fix, sin embargo esto tiene que mantenerse dinamico, 
+        is_liked: formData.is_liked // este fue el fix, sin embargo esto tiene que mantenerse dinamico, 
       };
     }
   
