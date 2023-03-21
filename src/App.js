@@ -27,6 +27,7 @@ import AdminProductCreation from "./pages/AdminOps/AdminProductCreation";
 import AdminCards from "./pages/AdminOps/AdminCards";
 import AdminProductsUpdate from "./pages/AdminOps/AdminProductsUpdate";
 import LogoutSuccess from "./components/LogoutSuccess";
+import Detail from "./pages/Detail";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -104,6 +105,7 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/success" element={<Success />} />
                   <Route path="/logoutsucces" element={<LogoutSuccess />} />
+                  <Route path="/detail/:itemId" element={<Detail />} />
                 </Routes>
               </div>
               <Footer />

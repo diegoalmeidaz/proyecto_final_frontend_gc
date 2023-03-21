@@ -1,0 +1,8 @@
+.hide {
+  display: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 60px; /* Ajusta este valor según sea necesario */
+}

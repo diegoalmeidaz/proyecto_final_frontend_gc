@@ -37,5 +37,8 @@ export async function deleteItem(itemId) {
 
 export async function getSingleItem(itemId) {
   const response = await apiClient.get(`/items/${itemId}`);
+  console.log("getSingleItem response:", response);
   return response.data;
 }
+
+
