@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { getUserInfo, updateUser } from "../../core/api_users";
-import { getUserRoles, updateUserRoles } from "../../core/api_roles";
+import { getUserRoles} from "../../core/api_roles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateUserRole } from "../../core/api_userRoles";
+import { getUserRolesByUserId, updateUserInfoAndRole } from "../../core/api_userRoles";
 
 const UserEdit = () => {
   const [values, setValues] = useState({
@@ -19,54 +19,78 @@ const UserEdit = () => {
   const [roleRenter, setRoleRenter] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const [{ data: userData }, { data: rolesData }] = await Promise.all([
-          getUserInfo(),
-          getUserRoles(),
-        ]);
-
-        setValues((prevState) => ({ ...prevState, ...userData }));
-        setAddress(userData.address || "");
-
-        setRoleUser(rolesData.includes("user"));
-        setRoleRenter(rolesData.includes("renter"));
+        const userData = await getUserInfo();
+        console.log("userData:", userData);
+    
+        if (userData) {
+          const userId = userData.user_id;
+          const rolesData = await getUserRolesByUserId(userId);
+    
+          console.log("rolesData:", rolesData);
+    
+          if (rolesData) {
+            setValues((prevState) => ({ ...prevState, ...userData }));
+            setAddress(userData.address || "");
+    
+            setRoleUser(rolesData.includes("user"));
+            setRoleRenter(rolesData.includes("renter"));
+          } else {
+            console.error("Error al obtener los roles del usuario.");
+          }
+        } else {
+          console.error("Error al obtener datos del usuario.");
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Error en la solicitud:", error);
       }
     };
-
+    
+    
+  
     fetchUser();
   }, []);
+  
+  
+  
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const { data } = await updateUser(values);
-
-      // Obtén el userId desde userData
-      const userId = data.id;
-
-      // Determina el nuevo rol en función de los estados roleUser y roleRenter
-      const newRoleId = roleUser ? (roleRenter ? 3 : 1) : roleRenter ? 2 : null;
-
-      // Llama a updateUserRole con el userId y el newRoleId
-      await updateUserRole(userId, newRoleId);
-
-      setError("");
-      setSuccess(data.message);
-    } catch (error) {
-      setError(error.response.data.errors[0].msg);
-      setSuccess("");
-    }
+  // Actualiza la información del usuario con los valores actuales
+  const updatedUserInfo = {
+    ...values,
+    address,
+    roles: roleUser ? (roleRenter ? [3] : [1]) : roleRenter ? [2] : [],
   };
+
+  try {
+    // Llama a updateUserInfoAndRole con el userId y la información actualizada del usuario
+    const userId = values.user_id;
+    await updateUserInfoAndRole(userId, updatedUserInfo);
+
+    setError("");
+    setSuccess("Información del usuario actualizada correctamente.");
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.errors) {
+      setError(error.response.data.errors[0].msg);
+    } else {
+      setError('Error desconocido al actualizar la información del usuario.');
+    }
+    setSuccess("");
+  }
+};
+
+
+  
 
   return (
     <div
