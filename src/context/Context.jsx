@@ -92,7 +92,7 @@ const ContextProvider = ({ children }) => {
       setCart(newCart);
     } else {
       setCart([...cart, { ...product, count: 1 }]);
-    }
+    } 
   };
 
   const takeProduct = (index) => {
