@@ -11,7 +11,7 @@ import FormInput from "../../components/AdminOpsComponents/FormInput";
 import FormTextarea from "../../components/AdminOpsComponents/FormTarea";
 import FormCheckbox from "../../components/AdminOpsComponents/FormCheckbox";
 import Switch from "react-switch";
-import axios from "axios"
+import { apiClient } from "../../core/api_base_url";
 
 const fields = [
   { id: "name", label: "Nombre", type: "text", required: true },
@@ -214,8 +214,7 @@ function AdminProductUpdate() {
       const newAvailability = !formData.availability;
 
       // Realiza la solicitud PUT para actualizar la disponibilidad del producto
-      await axios.put(`http://localhost:8000/items/${item_id}`, {
-
+      await apiClient.put(`/items/${item_id}`, {
         availability: newAvailability,
       });
 

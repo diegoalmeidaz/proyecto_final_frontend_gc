@@ -7,15 +7,23 @@ const Context = createContext();
 
 const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const localData = localStorage.getItem("cart");
+    return localData ? JSON.parse(localData) : [];
+  });
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const getProducts = async () => {
-    const { data } = await apiClient.get("http://localhost:8000/items");
+    const { data } = await apiClient.get("/items");
     setProducts(data);
     // console.log(data);
-  };
+};
+
   
 
   const handleLogin = (loggedInUser) => {
@@ -123,7 +131,7 @@ const ContextProvider = ({ children }) => {
         handleLogout,
         checkUser,
         handleLogin,
-        updateUser
+        updateUser,
       }}
     >
       {children}
