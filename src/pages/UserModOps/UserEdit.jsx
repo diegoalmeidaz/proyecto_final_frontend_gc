@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { getUserInfo, updateUser, updatePassword } from "../../core/api_users";
 import { updateUserRole } from "../../core/api_userRoles";
-import {
-  getUserRolesByUserId,
-  updateUserInfoAndRole,
-} from "../../core/api_userRoles";
-import bcrypt from "bcryptjs";
 import '../../styles/userEdit.css'
+// import {
+//   getUserRolesByUserId,
+//   updateUserInfoAndRole,
+// } from "../../core/api_userRoles";
+// import bcrypt from "bcryptjs";
+
 
 
 const UserEdit = () => {
@@ -106,29 +107,34 @@ const UserEdit = () => {
   
 
 
+// dejaremos la funcionalidad de cambio de rol para despues. Ahora estan todos creandose como "renters" ... 
+// cuando la tienda opere mas grande, incluiremos la logica de cambio de rol.
+
+  // const onSubmitRole = async (e) => {
+  //   e.preventDefault();
+
+  //   const updatedUserRoles = roleUser
+  //     ? roleRenter
+  //       ? [3]
+  //       : [1]
+  //     : roleRenter
+  //     ? [2]
+  //     : [];
+
+  //   try {
+  //     const userId = values.user_id;
+  //     await updateUserRole(userId, updatedUserRoles);
+  //     setError("");
+  //     setSuccess("Rol del usuario actualizado correctamente.");
+  //     alert("Contraseña actualizada correctamente."); // alerta de navegador para exito en rol
+  //   } catch (error) {
+  //     handleError(error);
+  //   }
+  // };
 
 
-  const onSubmitRole = async (e) => {
-    e.preventDefault();
 
-    const updatedUserRoles = roleUser
-      ? roleRenter
-        ? [3]
-        : [1]
-      : roleRenter
-      ? [2]
-      : [];
 
-    try {
-      const userId = values.user_id;
-      await updateUserRole(userId, updatedUserRoles);
-      setError("");
-      setSuccess("Rol del usuario actualizado correctamente.");
-      alert("Contraseña actualizada correctamente."); // alerta de navegador para exito en rol
-    } catch (error) {
-      handleError(error);
-    }
-  };
   const handleError = (error) => {
     if (error.response && error.response.data && error.response.data.errors) {
       setError(error.response.data.errors[0].msg);
