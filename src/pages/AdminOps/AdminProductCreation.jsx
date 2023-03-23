@@ -101,6 +101,13 @@ function CreateProduct() {
         };
       }
 
+      if (user.role === "admin") {
+        newItem = {
+          ...newItem,
+          is_like: formData.is_like || false,
+        };
+      }
+
 
     
       console.log("Datos del formulario:", newItem);
@@ -110,7 +117,7 @@ function CreateProduct() {
         alert("Producto creado con éxito");
         setFormData(initialValues);
       } catch (error) {
-        alert("Error al crear el producto");
+        alert("Error al crear el producto, debes completar todos los campos de información");
       }
     };
 

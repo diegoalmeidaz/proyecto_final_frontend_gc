@@ -1,0 +1,30 @@
+@media screen and (max-width: 768px) {
+  .user-edit-container {
+    width: 90%;
+    max-width: none;
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .user-edit-container {
+    margin-top: 200px;
+    margin-bottom: 70px;
+  }
+}
+
+.user-edit-container {
+  width: 80%; /* Ajusta este valor para cambiar el ancho en dispositivos de escritorio */
+  max-width: 800px; /* Ajusta este valor para establecer un ancho máximo */
+  margin: 0 auto; /* Centra la caja horizontalmente */
+}
+
+@media screen and (max-width: 768px) {
+  .user-edit-container {
+    width: 90%;
+    max-width: none;
+    padding: 1rem;
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+}

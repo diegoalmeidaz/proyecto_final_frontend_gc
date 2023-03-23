@@ -33,17 +33,6 @@ export async function getUserInfo() {
   }
 }
 
-export async function updateUser(user_id, userData) {
-  const response = await apiClient.put(`/users/updateinfo/${user_id}`, userData);
-  return response.data;
-}
-
-
-
-// Agrega la función updatePassword aquí
-export async function updatePassword(userId, newPassword) {
-  const passwordData = {
-    newPassword: newPassword,
-  };
-  return await apiClient.put(`/users/${userId}/password`, passwordData);
+export async function updateUser(userData) {
+  return await apiClient.put('/users/update', userData); // Enviar datos sin encriptar
 }

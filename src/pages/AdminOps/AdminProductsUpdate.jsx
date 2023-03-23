@@ -155,7 +155,7 @@ function AdminProductUpdate() {
       renter_name: user.name,
       renter_lastname: user.lastname,
       renter_email: user.email,
-      is_liked: formData.is_liked
+      is_liked: formData.is_liked || false,
       
     };
   
@@ -166,7 +166,7 @@ function AdminProductUpdate() {
         renters_commision: formData.renters_commision,
         safe_deposit: formData.safe_deposit,
         laundry_charge: formData.laundry_charge,
-        is_liked: formData.is_liked // este fue el fix, sin embargo esto tiene que mantenerse dinamico, 
+        is_liked: formData.is_liked || false,// este fue el fix, sin embargo esto tiene que mantenerse dinamico, 
       };
     }
   

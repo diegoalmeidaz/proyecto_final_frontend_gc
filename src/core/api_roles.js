@@ -1,4 +1,5 @@
 import { apiClient } from './api_base_url';
+import { encryptData, decryptData } from './encryption';
 
 export async function getUserRoles() {
   const token = localStorage.getItem('token');
@@ -7,17 +8,17 @@ export async function getUserRoles() {
       'Authorization': `Bearer ${token}`,
     },
   });
-  return response.data.user_roles;
+  return decryptData(response.data.user_roles);
 }
 
 export async function updateUserRoles(roleUser, roleRenter) {
   const token = localStorage.getItem('token');
   const response = await apiClient.put(
     '/user_roles',
-    {
+    encryptData({
       roleUser,
       roleRenter,
-    },
+    }),
     {
       headers: {
         'Authorization': `Bearer ${token}`,

@@ -38,7 +38,7 @@ export default function SearchBar() {
         name="search"
         className="bn outline-0"
         type="search"
-        placeholder="Find items by name..."
+        placeholder="Busca por nombre..."
       />
     </div>
   );
