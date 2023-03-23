@@ -14,14 +14,14 @@ export async function getItems() {
 }
 
 export async function createItem(itemData) {
-  console.log("Item data to be sent:", itemData); // agregamos este console log para ver si esta mandando los datos necesarios
+  // console.log("Item data to be sent:", itemData); // agregamos este console log para ver si esta mandando los datos necesarios
   const response = await apiClient.post('/items', itemData);
   return response.data;
 }
 
 export const updateItem = async (item_id, itemData) => {
   try {
-    const response = await axios.put(`http://localhost:8000/items/${item_id}`, itemData);
+    const response = await apiClient.put(`/items/${item_id}`, itemData);
     return response.data;
   } catch (error) {
     console.error("Error al actualizar el producto:", error);
@@ -36,7 +36,7 @@ export async function deleteItem(itemId) {
 
 export async function getSingleItem(item_id) {
   const response = await apiClient.get(`/items/${item_id}`);
-  console.log("getSingleItem response:", response);
+  // console.log("getSingleItem response:", response);
   return response.data;
 }
 

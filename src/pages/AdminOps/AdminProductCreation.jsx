@@ -110,8 +110,8 @@ function CreateProduct() {
 
 
     
-      console.log("Datos del formulario:", newItem);
-      console.log("Valor de brand en newItem:", newItem.brand);
+      // console.log("Datos del formulario:", newItem);
+      // console.log("Valor de brand en newItem:", newItem.brand);
       try {
         await createItem(newItem);
         alert("Producto creado con éxito");

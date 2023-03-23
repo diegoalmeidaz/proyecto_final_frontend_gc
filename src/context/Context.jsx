@@ -14,7 +14,7 @@ const ContextProvider = ({ children }) => {
   const getProducts = async () => {
     const { data } = await apiClient.get("http://localhost:8000/items");
     setProducts(data);
-    console.log(data);
+    // console.log(data);
   };
   
 

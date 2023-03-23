@@ -14,7 +14,7 @@ export async function getUserRolesByUserId(userId) {
 
   export async function updateUserRole(userId, newRoleId) {
     const encryptedData = encryptData({ role_id: newRoleId });
-    console.log("Datos encriptados en updateUserRole:", encryptedData);
+    // console.log("Datos encriptados en updateUserRole:", encryptedData);
     const response = await apiClient.put(`/user_roles/user/${userId}`, encryptedData);
     return response.data;
   }
@@ -22,7 +22,7 @@ export async function getUserRolesByUserId(userId) {
 
 export async function updateUserInfoAndRole(userId, updatedUserInfo) {
     const encryptedData = encryptData(updatedUserInfo);
-    console.log("Datos encriptados en updateUserInfoAndRole:", encryptedData);
+    // console.log("Datos encriptados en updateUserInfoAndRole:", encryptedData);
     const response = await apiClient.put(`/user_roles/user-info-role/${userId}`, encryptedData);
     return response.data;
   }

@@ -71,7 +71,7 @@ const UserEdit = () => {
   
     try {
       const userId = values.user_id;
-      console.log("User ID:", userId);
+      // console.log("User ID:", userId);
       await updateUser(userId, updatedUserInfo);
       setError("");
       setSuccess("Información del usuario actualizada correctamente.");

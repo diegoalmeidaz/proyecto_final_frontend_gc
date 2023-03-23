@@ -9,7 +9,7 @@ export function encryptData(data) {
 
 // Función de desencriptación específica para el objeto de datos del usuario
 export function decryptUserData(data) {
-  console.log('Input to decryptUserData:', data);
+  // console.log('Input to decryptUserData:', data);
   const decryptedData = {
     user_id: Number(data.user_id),
     username: decrypt(data.username),
@@ -21,7 +21,7 @@ export function decryptUserData(data) {
     phone: decrypt(data.phone),
     
   };
-  console.log('Decrypted user data:', decryptedData);
+ // console.log('Decrypted user data:', decryptedData);
   return decryptedData;
 }
 
@@ -29,7 +29,7 @@ export function decryptUserData(data) {
 export function decryptData(encryptedData) {
   const bytes = AES.decrypt(encryptedData, SECRET_KEY);
   const decryptedData = JSON.parse(bytes.toString(Utf8));
-  console.log('Decrypted data:', decryptedData);
+  // console.log('Decrypted data:', decryptedData);
   return decryptedData;
 }
 
@@ -41,7 +41,7 @@ export function decrypt(encryptedText) {
 
 // Función de desencriptación específica para el objeto de roles del usuario
 export function decryptUserRoles(data) {
-    console.log('Input to decryptUserRoles:', data);
+   // console.log('Input to decryptUserRoles:', data);
   
     if (!data || !data.encryptedData) {
       console.error('Invalid data provided to decryptUserRoles:', data);
@@ -52,7 +52,7 @@ export function decryptUserRoles(data) {
   
     try {
       const decryptedData = JSON.parse(decryptedString);
-      console.log('Decrypted user roles:', decryptedData);
+      // console.log('Decrypted user roles:', decryptedData);
       return decryptedData;
     } catch (error) {
       console.error('Error parsing decrypted user roles:', error);

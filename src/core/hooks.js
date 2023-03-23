@@ -69,8 +69,8 @@ export function useSingleItem(item_id) {
       refetchOnWindowFocus: false,
     }
   );
-  console.log('useSingleItem data:', data, 'error:', error, 'isLoading:', isLoading);
-  console.log('useSingleItem itemId:', item_id);
+ // console.log('useSingleItem data:', data, 'error:', error, 'isLoading:', isLoading);
+ // console.log('useSingleItem itemId:', item_id);
 
   return {
     item: data,

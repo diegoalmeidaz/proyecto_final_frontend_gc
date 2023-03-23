@@ -170,7 +170,7 @@ function AdminProductUpdate() {
       };
     }
   
-    console.log("Datos del formulario:", newItem);
+    // console.log("Datos del formulario:", newItem);
     try {
       if (productToUpdate) {
         await updateItem(item_id, newItem);
@@ -179,8 +179,8 @@ function AdminProductUpdate() {
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
       if (error.response) {
-        // El servidor respondió con un código de estado que no está en el rango de 2xx
-        console.log("Datos de la respuesta del servidor:", error.response.data);
+        
+       // console.log("Datos de la respuesta del servidor:", error.response.data);
         console.log("Código de estado:", error.response.status);
         console.log("Encabezados:", error.response.headers);
       } else if (error.request) {

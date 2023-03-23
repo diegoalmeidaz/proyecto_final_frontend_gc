@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Context from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/logo_gc_sin_fondo_100x100.png";
+import { decrypt } from "crypto-js/aes";
 
 const Navbar = () => {
   const { user, isLoggedIn, handleLogout } = useContext(Context);
@@ -10,7 +11,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart } = useContext(Context);
   const total = cart.reduce((a, { count, price }) => a + price * count, 0);
-  console.log("User object:", user);
+ 
 
   const logout = (e) => {
     e.preventDefault();

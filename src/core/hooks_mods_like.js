@@ -17,7 +17,7 @@ export function useItems() {
           params: search,
         })
         .then((res) => {
-          console.log(res.data); // Verificar el tipo de la respuesta
+         // console.log(res.data); // Verificar el tipo de la respuesta
           // Map over the response data and add a `likes` field to each item
           const dataWithLikes = res.data.map((item) => {
             return {
