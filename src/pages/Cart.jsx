@@ -84,7 +84,7 @@ const Cart = () => {
           ))}
              <div className="mt-4">
             <label htmlFor="visitDate" className="block text-sm font-medium">
-              Fecha de visita:
+              Fecha de visita para prueba:
             </label>
                 <input
                   type="date"
@@ -96,7 +96,7 @@ const Cart = () => {
              </div>
           <div className="mt-4">
             <label htmlFor="rentalDate" className="block text-sm font-medium">
-              Fecha de alquiler:
+              Fecha de arriendo de vestido:
             </label>
                 <input
                   type="date"
