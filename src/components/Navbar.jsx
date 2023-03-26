@@ -11,6 +11,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart } = useContext(Context);
   const total = cart.reduce((a, { count, price }) => a + price * count, 0);
+  
  
 
   const logout = (e) => {

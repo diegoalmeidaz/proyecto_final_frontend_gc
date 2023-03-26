@@ -1,6 +1,6 @@
 // api_orders.js
 import { apiClient } from "./api_base_url";
-import { encryptData, decryptData } from "./encryption";
+import { encryptData, decryptData, encryptOrderData } from "./encryption";
 
 // Obtener una orden por ID
 export async function getOrderById(order_id) {
@@ -23,26 +23,37 @@ export async function getOrderById(order_id) {
 // Crear una nueva orden
 export async function createOrder(orderData) {
   try {
+    console.log('Original orderData:', orderData);
+
+    
+    
+
     const encryptedOrderData = {
       ...orderData,
-      delivery_address: encryptData(orderData.delivery_address),
-      payment_method: encryptData(orderData.payment_method),
+      delivery_address: encryptOrderData(orderData.delivery_address),
+      payment_method: encryptOrderData(orderData.payment_method),
     };
+
+    console.log('Encrypted orderData:', encryptedOrderData);
 
     const response = await apiClient.post(`/orders`, encryptedOrderData);
 
-    const decryptedOrder = {
+    const decryptedOrderData = {
       ...response.data,
       delivery_address: decryptData(response.data.delivery_address),
       payment_method: decryptData(response.data.payment_method),
     };
 
-    return decryptedOrder;
+    console.log('Decrypted orderData:', decryptedOrderData);
+
+    return decryptedOrderData;
   } catch (error) {
-    console.error("Error creating order:", error);
+    console.error('Error in createOrder:', error);
     throw error;
   }
 }
+
+
 
 // Eliminar una orden
 export async function deleteOrder(order_id) {
@@ -93,3 +104,17 @@ export async function updateOrder(order_id, orderData) {
     throw error;
   }
 }
+
+
+// Obtener todas las órdenes
+export async function getOrders() {
+  try {
+    const response = await apiClient.get('/orders');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+}
+
+

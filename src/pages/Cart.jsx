@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import Context from "../context/Context";
 import "../styles/Cart.css";
+import { createOrder } from "../../src/core/api_orders";
+
+
 
 const Cart = () => {
-  const { cart, addProduct, takeProduct } = useContext(Context);
+  const { cart, addProduct, takeProduct, user, isLoggedIn } = useContext(Context);
 
   const totalOrder = (count, price) => {
     const total = count * price;
@@ -29,6 +32,57 @@ const Cart = () => {
   const handleDeliveryAddressChange = (e) => {
     setDeliveryAddress(e.target.value);
   };
+
+
+
+
+// Función para manejar la creación de una nueva orden
+const handleCreateOrder = async () => {
+  // Verificar si el usuario está logueado antes de crear la orden
+  if (!isLoggedIn) {
+    alert("Debes iniciar sesión para crear una orden");
+    return;
+  }
+  
+  
+  
+  // Construir el objeto orderData
+  const orderData = {
+    user_id: user.user_id, // Aquí debes poner el user_id del usuario logueado
+    total_price: total,
+    status_order: "en proceso",
+    delivery_address: deliveryAddress,
+    payment_method: "tarjeta",
+    visit_date: visitDate,
+    rental_date: rentalDate,
+  };
+
+
+  const orderDetails = cart.map((item) => {
+    console.log("Item in cart:", item);
+    return {
+      item_id: item.item_id, // Cambiar a item.item_id si esa es la propiedad correcta
+      quantity: item.count,
+      price: item.price,
+    };
+  });
+
+// Agregar orderDetails al objeto orderData
+orderData.order_details = orderDetails;
+
+// Llamar a la función createOrder y manejar la respuesta
+try {
+  const createdOrder = await createOrder(orderData);
+  console.log("Orden creada:", createdOrder);
+  // Aquí puedes agregar lógica adicional, como vaciar el carrito o mostrar un mensaje de éxito
+} catch (error) {
+  console.error("Error al crear la orden:", error);
+  // Aquí puedes agregar lógica adicional, como mostrar un mensaje de error
+}
+};
+
+
+
 
   return (
     <>
@@ -125,9 +179,12 @@ const Cart = () => {
                   currency: "CLP",
                 })}
               </h2>
-              <button className="px-3 py-2 text-white bg-green-600 rounded-md">
-            Pagar
-          </button>
+              <button
+        className="px-3 py-2 text-white bg-green-600 rounded-md"
+        onClick={handleCreateOrder} // Agregar el evento onClick al botón para llamar a handleCreateOrder
+      >
+        Pagar
+      </button>
         </div>
       </div>
     </>

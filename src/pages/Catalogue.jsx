@@ -33,6 +33,7 @@ export default function Root() {
 
   const [filtersVisible, setFiltersVisible] = useState(false);
   
+  
 
   return (
     <div className="mw9 center ph4 bg-white min-vh-100 br bl b--light-gray">

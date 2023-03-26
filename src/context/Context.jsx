@@ -71,11 +71,16 @@ const ContextProvider = ({ children }) => {
     checkUser();
   }, []);
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const handleLogout = async () => {
     try {
       await onLogout();
       setIsLoggedIn(false);
       setUser(null);
+      clearCart();
     } catch (error) {
       console.error("Error logging out:", error);
     }
