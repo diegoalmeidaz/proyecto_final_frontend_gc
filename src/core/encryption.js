@@ -2,10 +2,6 @@ import CryptoJS from 'crypto-js';
 
 const SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
 
-//const SECRET_KEY = 'aXveryXcomplexXandXlongXsecretXkey123';
-
-// el problema esta aqui: que el .env no esta funcionando y no esta mandando la secret key para poder encriptar el show... 
-
 
 
 export function encryptData(data) {

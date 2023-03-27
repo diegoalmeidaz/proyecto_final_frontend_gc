@@ -2,11 +2,14 @@ import { useContext, useState } from "react";
 import Context from "../context/Context";
 import "../styles/Cart.css";
 import { createOrder } from "../../src/core/api_orders";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Cart = () => {
   const { cart, addProduct, takeProduct, user, isLoggedIn } = useContext(Context);
+
+  const navigate = useNavigate();
 
   const totalOrder = (count, price) => {
     const total = count * price;
@@ -74,10 +77,10 @@ orderData.order_details = orderDetails;
 try {
   const createdOrder = await createOrder(orderData);
   console.log("Orden creada:", createdOrder);
-  // Aquí puedes agregar lógica adicional, como vaciar el carrito o mostrar un mensaje de éxito
+  alert("Tu orden ha sido ingreasada con exito. En breve te contactaremos para confirmar tu fecha de prueba y la fecha de arriendo");
+  navigate("/modify_order");
 } catch (error) {
   console.error("Error al crear la orden:", error);
-  // Aquí puedes agregar lógica adicional, como mostrar un mensaje de error
 }
 };
 
@@ -162,7 +165,7 @@ try {
              </div>
           <div className="mt-4">
             <label htmlFor="deliveryAddress" className="block text-sm font-medium">
-              Dirección de entrega:
+              Dirección de retiro de vestidos:
             </label>
                 <input
                   type="text"

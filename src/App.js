@@ -29,6 +29,7 @@ import AdminProductsUpdate from "./pages/AdminOps/AdminProductsUpdate";
 import LogoutSuccess from "./components/LogoutSuccess";
 import Detail from "./pages/Detail";
 import UserEdit from "./pages/UserModOps/UserEdit";
+import EditOrder from "./pages/OrderModOps/UserEditOrder";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -108,6 +109,16 @@ function App() {
                       </PrivateRoutes>
                     }
                   />
+
+                  <Route
+                    path="/modify_order"
+                    element={
+                      <PrivateRoutes>
+                        <EditOrder />
+                      </PrivateRoutes>
+                    }
+                  />
+
                   <Route path="*" element={<NotFound />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />

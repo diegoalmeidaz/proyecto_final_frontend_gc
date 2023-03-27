@@ -2,17 +2,21 @@
 import { apiClient } from "./api_base_url";
 import { encryptData, decryptData, encryptOrderData } from "./encryption";
 
-// Obtener una orden por ID
+// Obtener orden por ID
 export async function getOrderById(order_id) {
   try {
     const response = await apiClient.get(`/orders/${order_id}`);
 
+    // Desencriptar la información sensible antes de enviarla al cliente
+    console.log("Encrypted order data:", response.data);
+
     const decryptedOrder = {
       ...response.data,
-      delivery_address: decryptData(response.data.delivery_address),
-      payment_method: decryptData(response.data.payment_method),
+      delivery_address: response.data.delivery_address ? decryptData(response.data.delivery_address) : null,
+      payment_method: response.data.payment_method ? decryptData(response.data.payment_method) : null,
     };
 
+    console.log("Decrypted order data del getOrderByID:", decryptedOrder); // Agrega esta línea
     return decryptedOrder;
   } catch (error) {
     console.error("Error fetching order by ID:", error);
@@ -20,13 +24,12 @@ export async function getOrderById(order_id) {
   }
 }
 
+
+
 // Crear una nueva orden
 export async function createOrder(orderData) {
   try {
     console.log('Original orderData:', orderData);
-
-    
-    
 
     const encryptedOrderData = {
       ...orderData,
@@ -44,7 +47,7 @@ export async function createOrder(orderData) {
       payment_method: decryptData(response.data.payment_method),
     };
 
-    console.log('Decrypted orderData:', decryptedOrderData);
+    console.log('Decrypted orderData del createOrder:', decryptedOrderData);
 
     return decryptedOrderData;
   } catch (error) {
@@ -52,8 +55,6 @@ export async function createOrder(orderData) {
     throw error;
   }
 }
-
-
 
 // Eliminar una orden
 export async function deleteOrder(order_id) {
@@ -105,7 +106,6 @@ export async function updateOrder(order_id, orderData) {
   }
 }
 
-
 // Obtener todas las órdenes
 export async function getOrders() {
   try {
@@ -117,4 +117,29 @@ export async function getOrders() {
   }
 }
 
+// Obtener órdenes por usuario
+export async function getOrdersByUser(user_id) {
+  try {
+    const response = await apiClient.get(`/orders/user/${user_id}`);
+
+    // Desencriptar la información sensible antes de enviarla al cliente
+    const decryptedOrders = response.data.map((order) => {
+      console.log("Encrypted order data:", order);
+
+      const decryptedOrder = {
+        ...order,
+        delivery_address: order.delivery_address ? decryptData(order.delivery_address) : null,
+        payment_method: order.payment_method ? decryptData(order.payment_method) : null,
+      };
+
+      console.log("Decrypted order data del getOrderByUser:", decryptedOrder); // Agrega esta línea
+      return decryptedOrder;
+    });
+
+    return decryptedOrders;
+  } catch (error) {
+    console.error("Error fetching orders by user:", error);
+    throw error;
+  }
+}
 
