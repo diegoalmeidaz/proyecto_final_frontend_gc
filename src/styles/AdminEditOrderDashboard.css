@@ -1,0 +1,128 @@
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.admin-h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.orders-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.admin-order {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.admin-card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.admin-ul {
+  font-weight: bold;
+  padding: 0;
+}
+
+.admin-li {
+  font-weight: normal;
+  list-style: none;
+  margin-bottom: 0.25rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.order-section {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-section h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.order-section .order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-section .order-info .order-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-section .order-info .order-field label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.order-section .order-info .order-field input,
+.order-section .order-info .order-field select {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.order-section .order-info .order-field input[type="date"] {
+  cursor: pointer;
+}
+
+.order-section .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.order-section .actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.order-section .actions .cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.order-section .actions .save-btn {
+  background-color: #4caf50;
+  color: white;
+}

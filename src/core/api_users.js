@@ -20,13 +20,13 @@ export async function fetchProtectedInfo() {
 
 export async function onGetUser() {
   const response = await apiClient.get('/users/get-users');
-  return response.data.users; // Cambio para recibir datos ya desencriptados
+  return response.data.users; 
 }
 
 export async function getUserInfo() {
   try {
     const response = await apiClient.get('/users/me');
-    return response.data.user; // Cambio para recibir datos ya desencriptados
+    return response.data.user; 
   } catch (error) {
     console.error('Error al obtener la información del usuario:', error);
     return null;
@@ -38,12 +38,17 @@ export async function updateUser(user_id, userData) {
   return response.data;
 }
 
-
-
-// Agrega la función updatePassword aquí
+// Funcion para poder modificar el passowrd en el user Edit info
 export async function updatePassword(userId, newPassword) {
   const passwordData = {
     newPassword: newPassword,
   };
   return await apiClient.put(`/users/${userId}/password`, passwordData);
+}
+
+
+// seccion para registrar a un admin: En proceso de creacion
+
+export async function onRegistrationAdmin(registrationData) {
+  return await apiClient.post('/users/register_admin', registrationData);
 }

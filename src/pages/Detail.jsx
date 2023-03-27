@@ -70,10 +70,7 @@ const Detail = () => {
                 <div className="col justify-content-around mt-3">
                   <h4 className="precio">
                     Precio Arriendo:{" "}
-                    {productInfo.price.toLocaleString("es-CL", {
-                      style: "currency",
-                      currency: "CLP",
-                    })}
+                    {formatPrice(productInfo.price)}
                   </h4>
                   <button
                     style={{ width: "70%" }}

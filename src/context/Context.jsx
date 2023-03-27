@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { apiClient } from "../core/api_base_url";
-import { onLogout, onGetUser } from "../core/api_users";
+import { onLogout } from "../core/api_users";
 import { getUserInfo } from "../core/api_users";
 
 const Context = createContext();
@@ -121,6 +121,8 @@ const ContextProvider = ({ children }) => {
 
     setCart(newCart);
   };
+
+  
 
   return (
     <Context.Provider

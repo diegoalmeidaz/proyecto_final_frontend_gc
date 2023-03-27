@@ -30,6 +30,9 @@ import LogoutSuccess from "./components/LogoutSuccess";
 import Detail from "./pages/Detail";
 import UserEdit from "./pages/UserModOps/UserEdit";
 import EditOrder from "./pages/OrderModOps/UserEditOrder";
+import AdminOrderDashboard from "./pages/OrderModOps/AdminEditOrderDashboard";
+import RegisterAdmin from "./pages/RegisterAdmin";
+import MiniLanding from "./pages/HowItWorks";
 
 const PrivateRoutes = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -119,12 +122,31 @@ function App() {
                     }
                   />
 
+                  <Route
+                    path="/admin_order_dashboard"
+                    element={
+                      <PrivateRoutes>
+                        <AdminOrderDashboard />
+                      </PrivateRoutes>
+                    }
+                  />
+
+                  <Route
+                    path="/register_admin"
+                    element={
+                      <PrivateRoutes>
+                        <RegisterAdmin />
+                      </PrivateRoutes>
+                    }
+                  />
+
                   <Route path="*" element={<NotFound />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/success" element={<Success />} />
                   <Route path="/logoutsucces" element={<LogoutSuccess />} />
                   <Route path="/detail/:item_id" element={<Detail />} />
+                  <Route path="/como_funciona" element={<MiniLanding />} />
                 </Routes>
               </div>
               <Footer />

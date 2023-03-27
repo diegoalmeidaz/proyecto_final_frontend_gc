@@ -71,7 +71,7 @@ const Navbar = () => {
           <div className="flex flex-col md:flex-row md:mx-6">
             <Link
               className="my-1 text-red-500 text-lg md:mx-4 md:my-0 hover:text-red-700"
-              to="/"
+              to="/como_funciona"
             >
               Como Funciona
             </Link>

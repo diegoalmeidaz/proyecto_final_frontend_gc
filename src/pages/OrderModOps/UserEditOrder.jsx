@@ -9,6 +9,7 @@ import {
   getOrdersByUser,
 } from "../../core/api_orders";
 import { decryptData } from "../../core/encryption";
+import { formatPrice } from "../../core/utils";
 
 const EditOrder = () => {
   const { user, isLoggedIn } = useContext(Context);
@@ -41,14 +42,14 @@ const EditOrder = () => {
       const fetchedOrder = await getOrderById(orderId);
       console.log("Fetched order by ID:", fetchedOrder);
       setSelectedOrderId(orderId);
-      
+
       // Desencripta los campos encriptados antes de establecerlos en el estado
       const decryptedOrderData = {
         ...fetchedOrder,
         delivery_address: decryptData(fetchedOrder.delivery_address),
         payment_method: decryptData(fetchedOrder.payment_method),
       };
-      
+
       setOrderData(decryptedOrderData);
     } catch (error) {
       console.error("Error fetching order by ID:", error);
@@ -81,19 +82,41 @@ const EditOrder = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const getOrderStatusIndicator = (status) => {
+    switch (status) {
+      case "en proceso":
+        return "bg-yellow-500";
+      case "confirmado":
+        return "bg-green-500";
+      case "error en confirmar":
+        return "bg-red-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 mt-20 mb-12">
         <h2 className="text-2xl font-bold mb-5">Tus 5 últimas órdenes:</h2>
+        <h3 className="text-l mb-5">Pincha arriba de una de tus ordenes para modificar la direccion de recogida y fechas de prueba y arriendo de tus vestidos  </h3>
         <div className="bg-white rounded-lg shadow-md p-6 mb-10">
           {orders.map((order) => (
             <div key={order.order_id} className="border-b border-gray-200 py-2">
-              <button onClick={() => handleSelectOrder(order.order_id)}>
+              <button
+                onClick={() => handleSelectOrder(order.order_id)}
+                className="w-full text-left"
+              >
                 Orden #{order.order_id} - Total:{" "}
-                {order.total_price.toLocaleString("es-CL", {
-                  style: "currency",
-                  currency: "CLP",
-                })}
+                {formatPrice(order.total_price)}
+                <span className="float-right">
+                  <span
+                    className={`inline-block w-4 h-4 ml-2 mr-4 rounded-full ${getOrderStatusIndicator(
+                      order.status_order
+                    )}`}
+                  ></span>
+                  Status de la orden: "{order.status_order}""
+                </span>
               </button>
             </div>
           ))}
@@ -120,23 +143,6 @@ const EditOrder = () => {
                   className="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
-              {/* COMENTARIO: Dejaremos el modulo de pago reservado para mas adelante dado que aun no se puede pagar en la app .. y los manejos de $$ estan siendo a mano */}
-              {/* <div className="mt-4">
-                <label
-                  htmlFor="paymentMethod"
-                  className="block text-sm font-medium"
-                >
-                  Método de pago:
-                </label>
-                <input
-                  type="text"
-                  id="paymentMethod"
-                  name="payment_method"
-                  value={orderData.payment_method}
-                  onChange={handleFieldChange}
-                  className="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-              </div> */}
               <div className="mt-4">
                 <label
                   htmlFor="visitDate"

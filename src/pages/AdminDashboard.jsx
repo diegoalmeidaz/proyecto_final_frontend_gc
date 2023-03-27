@@ -7,7 +7,7 @@ import {
   FaUserFriends,
   FaUserEdit,
 } from "react-icons/fa";
-import Context from "../context/Context"
+import Context from "../context/Context";
 
 function AdminDashboard() {
   const { user } = useContext(Context);
@@ -30,8 +30,9 @@ function AdminDashboard() {
           Centro de Comando Carlota
         </h1>
         <p className="text-center mb-8">
-          Bienvenido al centro de comando de Guapa Carlota. Desde aquí podrás gestionar
-          productos, actualizar tu informacion, ver tus ordenes pasadas y prontamente mas opciones!!
+          Bienvenido al centro de comando de Guapa Carlota. Desde aquí podrás
+          gestionar productos, actualizar tu informacion, ver tus ordenes
+          pasadas y prontamente mas opciones!!
         </p>
         <div className="flex flex-wrap justify-center">
           <div className="text-center m-2">
@@ -51,7 +52,8 @@ function AdminDashboard() {
               <FaEdit />
             </Link>
             <p>Editar tus vestidos</p>
-          </div><div className="text-center m-2">
+          </div>
+          <div className="text-center m-2">
             <Link
               to="/user/edit"
               className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
@@ -60,11 +62,28 @@ function AdminDashboard() {
             </Link>
             <p>Modifica Tus Datos</p>
           </div>
-          {userRole === "admin" &&  (
+
+          {userRole === "renter" && (
             <>
               <div className="text-center m-2">
                 <Link
-                  to="/admin/orders"
+                  to="/modify_order"
+                  className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
+                >
+                  <FaClipboardList />
+                </Link>
+                <p>Ve y edita tus pedidos</p>
+              </div>
+             
+            </>
+          )}
+
+
+          {userRole === "admin" && (
+            <>
+              <div className="text-center m-2">
+                <Link
+                  to="/admin_order_dashboard"
                   className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
                 >
                   <FaClipboardList />
@@ -73,12 +92,12 @@ function AdminDashboard() {
               </div>
               <div className="text-center m-2">
                 <Link
-                  to="/admin/all-users"
+                  to="/register_admin"
                   className="bg-red-500 hover:bg-red-600 text-pink-100 font-bold py-4 px-4 rounded-full w-16 h-16 flex justify-center items-center mb-2 mx-auto"
                 >
                   <FaUserFriends />
                 </Link>
-                <p>Ver Todos los Usuarios</p>
+                <p>Crea un nuevo administrador</p>
               </div>
             </>
           )}
