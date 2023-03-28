@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import Context from "../../context/Context";
-import { getOrders, updateOrderStatus, deleteOrder } from "../../core/api_orders";
+import { getOrders, updateOrderStatus, deleteOrder, getOrdersDetails } from "../../core/api_orders";
 import { getUserInfoById } from "../../core/api_users";
 import "../../styles/AdminEditOrderDashboard.css";
+import { decrypt } from "../../core/encryption";
 
 const AdminOrderDashboard = () => {
   const { user } = useContext(Context);
@@ -18,14 +19,15 @@ const AdminOrderDashboard = () => {
   const fetchOrders = async () => {
     try {
       const allOrders = await getOrders();
-      const ordersWithUserInfo = await Promise.all(
+      const ordersWithDetails = await Promise.all(
         allOrders.map(async (order) => {
           const userInfo = await getUserById(order.user_id);
-          return { ...order, userInfo };
+          const orderDetails = await getOrdersDetails(order.order_id);
+          return { ...order, userInfo, orderDetails };
         })
       );
-
-      setOrders(ordersWithUserInfo);
+  
+      setOrders(ordersWithDetails);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -122,8 +124,23 @@ const OrderCard = ({ order, onUpdateStatus, onDeleteOrder }) => {
       <h3>Orden #{order.order_id}</h3>
       <p>Usuario: {order.userInfo.name}</p>
       <p>Email: {order.userInfo.email}</p>
-      <p>Fecha de creación: {new Date(order.created_at).toLocaleString()}</p>
+      {/* <p>Direccion de recogida: {decrypt(order.delivery_address)}</p> */}
+      <p>Fecha de creación orden: {new Date(order.created_at).toLocaleString()}</p>
+      <p>Fecha de visita: {new Date(order.visit_date).toLocaleString()}</p>
+      <p>Fecha de arriendo: {new Date(order.rental_date).toLocaleString()}</p>
       <p>Status: {order.status_order}</p>
+      {order.orderDetails && (
+        <>
+          <p>Detalles de la orden:</p>
+          <ul>
+            {order.orderDetails.map((detail) => (
+              <li key={detail.item_id}>
+                id: {detail.item_id} ({detail.quantity})
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <div className="actions">
         <button onClick={() => handleUpdateStatus("en proceso")}>
           En proceso

@@ -192,3 +192,17 @@ export async function createOrderWithDetails(orderData) {
     throw error;
   }
 }
+
+
+
+export async function getOrdersDetails(order_id) {
+  try {
+    const response = await apiClient.get(`/orders/details/${order_id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+}
+
+
