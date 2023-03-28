@@ -10,7 +10,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cart } = useContext(Context);
-  const total = cart.reduce((a, { count, price }) => a + price * count, 0);
+  const total = cart.reduce((a, { count }) => a + count, 0);
+
+  // antigua funcion de indicador de carrito .. ahora va a quedar como numero de vestidos
+  // const total = cart.reduce((a, { count, price }) => a + price * count, 0);
   
  
 
@@ -85,10 +88,10 @@ const Navbar = () => {
               className="my-1 text-red-500 text-lg md:mx-4 md:my-0 hover:text-red-700"
               to="/cart"
             >
-              🗓️ Total:{" "}
+              👗 Vestidos en tu orden:{" "}
               {total.toLocaleString("es-CL", {
-                style: "currency",
-                currency: "CLP",
+                //style: "string",
+                //currency: "CLP",
               })}
             </Link>
           </div>
@@ -97,7 +100,7 @@ const Navbar = () => {
               <>
                 <Link to="/dashboard" className="cursor-pointer">
                   <span className="text-red-500 text-lg mr-4 font-bold">
-                    Guapa {user ? user.name : ""}
+                  ❤️ Guapa {user ? user.name : ""}
                   </span>
                 </Link>
 
