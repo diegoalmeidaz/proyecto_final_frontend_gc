@@ -128,12 +128,12 @@ try {
                   <b className="mx-2 text-gray-600 font-semibold">
                     {item.count}
                   </b>
-                  <button
-                    className="px-3 py-1 text-white bg-blue-600 rounded-md ml-2"
+                  {/* <button
+                    className="px-3 py-1 text-red-500 bg-pink-100 rounded-md ml-2"
                     onClick={() => addProduct(i)}
                   >
                     +
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -183,9 +183,9 @@ try {
               </h2>
               <button
         className="px-3 py-2 text-white bg-green-600 rounded-md"
-        onClick={handleCreateOrder} // Agregar el evento onClick al botón para llamar a handleCreateOrder
+        onClick={handleCreateOrder} 
       >
-        Pagar
+        Preparar Vestidos!
       </button>
         </div>
       </div>

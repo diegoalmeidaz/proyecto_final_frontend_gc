@@ -67,7 +67,7 @@ export default function ItemsContainer() {
                   <div className="flex flex-col justify-center items-center space-y-4">
                     <div className="w-50">
                       <button
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        className="w-full bg-pink-100 hover:bg-pink-200 text-red-500 font-bold py-2 px-4 rounded"
                         onClick={() => navigate(`/detail/${item.item_id}`)}
                       >
                         Ver Mas
