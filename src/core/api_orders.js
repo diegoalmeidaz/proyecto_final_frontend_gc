@@ -79,9 +79,9 @@ export async function getOrdersByAdmin() {
 }
 
 // Actualizar el estado de una orden
-export async function updateOrderStatus(order_id, order_status) {
+export async function updateOrderStatus(order_id, status_order) {
   try {
-    await apiClient.put(`/orders/status/${order_id}`, { order_status });
+    await apiClient.put(`/orders/status/${order_id}`, { status_order });
   } catch (error) {
     console.error("Error updating order status:", error);
     throw error;

@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Context from "../../context/Context";
-import {
-  getOrders,
-  updateOrderStatus,
-  deleteOrder,
-} from "../../core/api_orders";
+import { getOrders, updateOrderStatus, deleteOrder } from "../../core/api_orders";
 import { getUserInfoById } from "../../core/api_users";
 import "../../styles/AdminEditOrderDashboard.css";
 
@@ -67,21 +63,6 @@ const AdminOrderDashboard = () => {
     return <h1 className="admin-h1">Cargando...</h1>;
   }
 
-  const renderOrder = (order) => {
-    if (!order.userInfo || !order.userInfo.name) {
-      return null;
-    }
-
-    return (
-      <OrderCard
-        key={order.id}
-        order={order}
-        onUpdateStatus={handleUpdateStatus}
-        onDeleteOrder={handleDeleteOrder}
-      />
-    );
-  };
-
   const ordersByStatus = (status) => {
     return orders.filter(
       (order) =>
@@ -93,7 +74,14 @@ const AdminOrderDashboard = () => {
   const renderOrdersByStatus = (status) => {
     const filteredOrders = ordersByStatus(status);
     return filteredOrders.length
-      ? filteredOrders.map(renderOrder)
+      ? filteredOrders.map((order, index) => (
+          <OrderCard
+            key={index}
+            order={order}
+            onUpdateStatus={handleUpdateStatus}
+            onDeleteOrder={handleDeleteOrder}
+          />
+        ))
       : "No hay órdenes en esta categoría";
   };
 
@@ -108,63 +96,52 @@ const AdminOrderDashboard = () => {
       <div className="orders-container">
         {renderOrdersByStatus("error en confirmar")}
       </div>
-      <h2 className="admin-h2">Órdenes confirmadas</h2>
+      <h2 className="admin-h2">Órdenes completadas</h2>
       <div className="orders-container">
-        {renderOrdersByStatus("confirmado")}
+        {renderOrdersByStatus("completada")}
+      </div>
+      <h2 className="admin-h2">Órdenes canceladas</h2>
+      <div className="orders-container">
+        {renderOrdersByStatus("cancelada")}
       </div>
     </div>
   );
 };
 
-const OrderCard = ({ order, onUpdateStatus, onDeleteOrder }) => (
-  <div
-    className="admin-order admin-container my-4 p-4 border border-gray-300 rounded"
-  >
-    <h2 className="admin-card-title font-bold text-xl mb-2">
-      {order.userInfo.name}
-    </h2>
-    <p className="text-gray-700">{order.userInfo.email}</p>
-    <p>Fecha de visita: {order.visit_date}</p>
-    <p>Fecha de alquiler: {order.rental_date}</p>
-    <p>Productos:</p>
-    <ul className="admin-ul list-disc list-inside">
-      {order.orderDetails &&
-        order.orderDetails.map((item) => (
-          <li key={item.item_id} className="admin-li">
-            Ítem ID: {item.item_id} - Cantidad: {item.quantity} - Precio: {item.price}
-          </li>
-        ))}
-    </ul>
+const OrderCard = ({ order, onUpdateStatus, onDeleteOrder }) => {
+  const handleUpdateStatus = (newStatus) => {
+    onUpdateStatus(order.order_id, newStatus);
+  };
 
-    <select
-      className="border border-gray-300 px-2 py-1 rounded"
-      value={order.status_order}
-      onChange={(e) => {
-        order.new_status = e.target.value;
-      }}
-    >
-      <option value="en proceso">En proceso</option>
-      <option value="error en confirmar">Error en confirmar</option>
-      <option value="confirmado">Confirmado</option>
-    </select>
-    <button
-      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2"
-      onClick={() => onDeleteOrder(order.id)}
-    >
-      Eliminar
-    </button>
-    <button
-      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded ml-2"
-      onClick={() => {
-        if (order.new_status) {
-          onUpdateStatus(order.id, order.new_status);
-        }
-      }}
-    >
-      Actualizar
-    </button>
-  </div>
-);
+  const handleDeleteOrder = () => {
+    onDeleteOrder(order.order_id);
+  };
+
+  return (
+    <div className="order-card">
+      <h3>Orden #{order.order_id}</h3>
+      <p>Usuario: {order.userInfo.name}</p>
+      <p>Email: {order.userInfo.email}</p>
+      <p>Fecha de creación: {new Date(order.created_at).toLocaleString()}</p>
+      <p>Status: {order.status_order}</p>
+      <div className="actions">
+        <button onClick={() => handleUpdateStatus("en proceso")}>
+          En proceso
+        </button>
+        <button onClick={() => handleUpdateStatus("completada")}>
+          Completada
+        </button>
+        <button onClick={() => handleUpdateStatus("error en confirmar")}>
+          Error en confirmar
+        </button>
+        <button onClick={() => handleUpdateStatus("cancelada")}>
+          Cancelada
+        </button>
+        <button onClick={handleDeleteOrder}>Eliminar</button>
+      </div>
+    </div>
+  );
+};
 
 export default AdminOrderDashboard;
 
