@@ -143,3 +143,52 @@ export async function getOrdersByUser(user_id) {
   }
 }
 
+export async function getOrdersWithDetails() {
+  try {
+    const response = await apiClient.get('/orders/details');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching orders with details:', error);
+    throw error;
+  }
+}
+
+
+
+// Crear una nueva orden con detalles
+export async function createOrderWithDetails(orderData) {
+  try {
+    console.log('Original orderData with details:', orderData);
+
+    const encryptedOrderData = {
+      ...orderData,
+      delivery_address: encryptOrderData(orderData.delivery_address),
+      payment_method: encryptOrderData(orderData.payment_method),
+      order_details: orderData.order_details.map((detail) => ({
+        ...detail,
+        product_name: encryptOrderData(detail.product_name),
+      })),
+    };
+
+    console.log('Encrypted orderData with details:', encryptedOrderData);
+
+    const response = await apiClient.post(`/orders/with-details`, encryptedOrderData);
+
+    const decryptedOrderData = {
+      ...response.data,
+      delivery_address: decryptData(response.data.delivery_address),
+      payment_method: decryptData(response.data.payment_method),
+      order_details: response.data.order_details ? response.data.order_details.map((detail) => ({
+        ...detail,
+        product_name: decryptData(detail.product_name),
+      })) : [],
+    };
+
+    console.log('Decrypted orderData with details from createOrderWithDetails:', decryptedOrderData);
+
+    return decryptedOrderData;
+  } catch (error) {
+    console.error('Error in createOrderWithDetails:', error);
+    throw error;
+  }
+}

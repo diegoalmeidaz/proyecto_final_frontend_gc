@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Context from "../context/Context";
 import "../styles/Cart.css";
-import { createOrder } from "../../src/core/api_orders";
+import { createOrderWithDetails } from "../../src/core/api_orders";
 import { useNavigate } from "react-router-dom";
 
 
@@ -49,33 +49,32 @@ const handleCreateOrder = async () => {
   
   
   
-  // Construir el objeto orderData
-  const orderData = {
-    user_id: user.user_id, // Aquí debes poner el user_id del usuario logueado
-    total_price: total,
-    status_order: "en proceso",
-    delivery_address: deliveryAddress,
-    payment_method: "tarjeta",
-    visit_date: visitDate,
-    rental_date: rentalDate,
+ // Construir el objeto orderData
+ const orderData = {
+  user_id: user.user_id, // Aquí debes poner el user_id del usuario logueado
+  total_price: total,
+  status_order: "en proceso",
+  delivery_address: deliveryAddress,
+  payment_method: "tarjeta",
+  visit_date: visitDate,
+  rental_date: rentalDate,
+};
+
+const orderDetails = cart.map((item) => {
+  console.log("Item in cart:", item);
+  return {
+    item_id: item.item_id, // Cambiar a item.item_id si esa es la propiedad correcta
+    quantity: item.count,
+    price: item.price,
   };
-
-
-  const orderDetails = cart.map((item) => {
-    console.log("Item in cart:", item);
-    return {
-      item_id: item.item_id, // Cambiar a item.item_id si esa es la propiedad correcta
-      quantity: item.count,
-      price: item.price,
-    };
-  });
+});
 
 // Agregar orderDetails al objeto orderData
 orderData.order_details = orderDetails;
 
 // Llamar a la función createOrder y manejar la respuesta
 try {
-  const createdOrder = await createOrder(orderData);
+  const createdOrder = await createOrderWithDetails(orderData); // Cambiar createOrder a createOrderWithDetails
   console.log("Orden creada:", createdOrder);
   alert("Tu orden ha sido ingreasada con exito. En breve te contactaremos para confirmar tu fecha de prueba y la fecha de arriendo");
   navigate("/modify_order");

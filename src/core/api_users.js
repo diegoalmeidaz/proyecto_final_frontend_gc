@@ -20,6 +20,7 @@ export async function fetchProtectedInfo() {
 
 export async function onGetUser() {
   const response = await apiClient.get('/users/get-users');
+  // console.log('All users from API:', response.data.users);
   return response.data.users; 
 }
 
@@ -51,4 +52,19 @@ export async function updatePassword(userId, newPassword) {
 
 export async function onRegistrationAdmin(registrationData) {
   return await apiClient.post('/users/register_admin', registrationData);
+}
+
+
+
+
+// Obtenemos la informacion de de usuario por id: 
+
+export async function getUserInfoById(userId) {
+  try {
+    const response = await apiClient.get(`/users/user/${userId}`); // Cambia la ruta según la API
+    return response.data.user;
+  } catch (error) {
+    console.error(`Error al obtener la información del usuario con ID ${userId}:`, error);
+    return null;
+  }
 }
