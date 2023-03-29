@@ -86,12 +86,15 @@ const EditOrder = () => {
     switch (status) {
       case "en proceso":
         return "bg-yellow-500";
-      case "confirmado":
+      case "completada":
         return "bg-green-500";
-      case "error en confirmar":
+      case "cancelada":
         return "bg-red-500";
+        case "error en confirmar":
+        return "bg-purple-500";
       default:
         return "bg-gray-500";
+        
     }
   };
 
