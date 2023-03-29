@@ -4,6 +4,7 @@ import Context from "../../context/Context";
 import FormInput from "../../components/AdminOpsComponents/FormInput";
 import FormTextarea from "../../components/AdminOpsComponents/FormTarea";
 import FormCheckbox from "../../components/AdminOpsComponents/FormCheckbox";
+import { useNavigate } from 'react-router-dom';
 
 const fields = [
   { id: "name", label: "Nombre", type: "text", required: true },
@@ -47,7 +48,7 @@ function CreateProduct() {
     );
     const [formData, setFormData] = useState(initialValues);
     const { user } = useContext(Context);
-    
+    const navigate = useNavigate();
   
     const handleChange = (e) => {
       const { name, value, type, checked } = e.target;
@@ -116,6 +117,10 @@ function CreateProduct() {
         await createItem(newItem);
         alert("Producto creado con éxito");
         setFormData(initialValues);
+    
+        setTimeout(() => {
+          navigate('/admin_catalogue_view');
+        }, 2000); // espera 2 segundos antes de redirigir al usuario
       } catch (error) {
         alert("Error al crear el producto, debes completar todos los campos de información");
       }

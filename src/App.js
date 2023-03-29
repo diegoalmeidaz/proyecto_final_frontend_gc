@@ -52,7 +52,7 @@ function App() {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-            <ContextProvider>
+          <ContextProvider>
               <Navbar />
               <div style={{ marginTop: "79px" }}>
                 <Routes>

@@ -24,13 +24,23 @@ const ContextProvider = ({ children }) => {
     // console.log(data);
 };
 
-  
+const [subscriptions, setSubscriptions] = useState([]);
 
-  const handleLogin = (loggedInUser) => {
-    console.log("Logged in user:", loggedInUser);
-    setUser(loggedInUser);
-    setIsLoggedIn(true);
+const subscribe = (callback) => {
+  setSubscriptions([...subscriptions, callback]);
+  return () => {
+    setSubscriptions(subscriptions.filter((sub) => sub !== callback));
   };
+};  
+
+
+
+const handleLogin = (loggedInUser) => {
+  console.log("Logged in user:", loggedInUser);
+  setUser(loggedInUser);
+  setIsLoggedIn(true);
+  subscriptions.forEach((callback) => callback(loggedInUser));
+};
 
   const checkUser = async () => {
     try {
@@ -139,6 +149,7 @@ const ContextProvider = ({ children }) => {
         checkUser,
         handleLogin,
         updateUser,
+        subscribe,
       }}
     >
       {children}

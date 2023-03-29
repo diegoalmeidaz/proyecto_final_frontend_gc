@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { onRegistration } from '../core/api_users'
+import { useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
@@ -17,15 +18,22 @@ const Register = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
+  const navigate = useNavigate();
+
   const onSubmit = async (e) => {
     e.preventDefault()
-
+  
     try {
       const { data } = await onRegistration(values)
-
+  
       setError('')
       setSuccess(data.message)
       setValues({ email: '', password: '', username: '', name: '', lastname: '' })
+  
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
+  
     } catch (error) {
       setError(error.response.data.errors[0].msg)
       setSuccess('')
@@ -47,7 +55,7 @@ const Register = () => {
 
     <div className="bg-white p-6 rounded-md shadow-md">
       <form onSubmit={(e) => onSubmit(e)} className='w-full max-w-md px-4'>
-        <h1 className='text-2xl font-bold mb-4'>Register</h1>
+        <h1 className='text-2xl font-bold mb-4'>Nuevo Registro</h1>
 
         <div className='mb-4'>
           <label htmlFor='email' className='block text-gray-700 font-bold mb-2'>
