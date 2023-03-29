@@ -1,0 +1,17 @@
+/* HowItWorks.css */
+@media (max-width: 768px) {
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 1rem;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 1rem;
+    }
+  }
+  
