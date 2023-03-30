@@ -1,12 +1,19 @@
 import React from "react";
 
+const bannerStyles = {
+  height: "60vh",
+  position: "relative",
+  borderTop: "2px solid white",
+  borderBottom: "2px solid white"
+};
+
 const Banner1 = () => {
   return (
     <div
-      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white relative text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
+      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
       style={{
         backgroundImage: `url('https://cdn.cliqueinc.com/posts/298975/designer-dresses-for-women-298975-1648835599732-promo.700x0c.jpg')`,
-        height: "60vh",
+        ...bannerStyles
       }}
     >
       <div className="overlay absolute inset-0 bg-black opacity-40 z-10"></div>
@@ -21,10 +28,10 @@ const Banner1 = () => {
 const Banner2 = () => {
   return (
     <div
-      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white relative text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
+      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
       style={{
         backgroundImage: `url('https://think-feel-discover.com/wp-content/uploads/2021/06/LondonFashionWeekStreetStyle2021_LFW_Dressesstyle_ThinkFeelDiscover_ChrysanthiKosmatou_FashionEditor_Blogger_Vlogger.JPG212.jpg')`,
-        height: "60vh",
+        ...bannerStyles
       }}
     >
       <div className="overlay absolute inset-0 bg-black opacity-40 z-10"></div>
@@ -45,10 +52,10 @@ const Banner2 = () => {
 const Banner3 = () => {
   return (
     <div
-      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white relative text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
+      className="header bg-cover bg-center h-screen flex flex-col justify-center items-center text-white text-center md:h-auto md:bg-blue-500 md:py-4 md:pb-8 md:px-6"
       style={{
         backgroundImage: `url('https://media.istockphoto.com/id/1295901898/photo/young-black-woman-with-curly-hair-in-yellow-dress-and-with-styles-attitude-laughing-happy.jpg?s=612x612&w=0&k=20&c=1TyAV7zs-mqE8CadNeuisB7h78r4KYJAQROlGdowva8=')`,
-        height: "60vh",
+        ...bannerStyles
       }}
     >
       <div className="overlay absolute inset-0 bg-black opacity-40 z-10"></div>
@@ -70,10 +77,10 @@ const Banner3 = () => {
 
 const Header = () => {
   return (
-    <div>
+    <div style={{ zIndex: 10 }}>
       <Banner1 />
-      <Banner2 />
       <Banner3 />
+      <Banner2 />
     </div>
   );
 };

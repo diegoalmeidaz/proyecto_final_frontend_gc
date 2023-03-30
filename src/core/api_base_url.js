@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const apiClient = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'https://proyectofinalbackendgc-production.up.railway.app/',
   withCredentials: true,
 });
 

@@ -20,7 +20,7 @@ function Footer() {
     const fullHeight = document.body.clientHeight;
   
     //console.log("isHidden:", scrollY > fullHeight * 0.8 - viewportHeight);//para ver como se mueve la pantalla
-    setIsHidden(scrollY > fullHeight * 0.8 - viewportHeight);
+    setIsHidden(scrollY > fullHeight * 0.6 - viewportHeight);
   };
 
   return (
@@ -28,6 +28,7 @@ function Footer() {
       className={`bg-pink-100 text-red-500 fixed bottom-0 w-full py-3 text-center font-semibold ${
         isHidden ? "hide" : ""
       }`}
+      style={{ zIndex: 30 }}
     >
       Guapa Carlota
     </footer>

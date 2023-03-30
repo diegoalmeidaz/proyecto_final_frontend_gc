@@ -36,9 +36,9 @@ export const { authenticateUser, unauthenticateUser, setUserRole } = authSlice.a
 
 export const getUserRole = () => async (dispatch) => {
   try {
-    const { data } = await onGetUser()
-    if (data) {
-      dispatch(setUserRole(data.role))
+    const users = await onGetUser()
+    if (users) {
+      dispatch(setUserRole(users.role))
     }
   } catch (error) {
     console.log(error)
@@ -46,4 +46,7 @@ export const getUserRole = () => async (dispatch) => {
 }
 
 export default authSlice.reducer
+
+
+
 
