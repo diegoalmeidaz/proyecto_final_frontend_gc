@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
-  const { cart, takeProduct, user, isLoggedIn } = useContext(Context); // agregar esta variable pa cuando el carro este check: addProduct
+  const { cart, takeProduct, user, isLoggedIn } = useContext(Context); //
 
   const navigate = useNavigate();
 

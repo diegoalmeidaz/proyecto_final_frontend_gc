@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const bannerStyles = {
   height: "60vh",
@@ -39,12 +40,12 @@ const Banner2 = () => {
       <h6 className="text-lg font-medium text-shadow z-20">
         Gana dinero con nuestro club
       </h6>
-      <a
-        href="/register"
+      <Link
+        to="/register"
         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 z-20"
       >
         Regístrate
-      </a>
+      </Link>
     </div>
   );
 };
@@ -64,13 +65,13 @@ const Banner3 = () => {
         <li className="text-xl font-bold text-shadow">Telas diferentes</li>
         <li className="text-xl font-bold text-shadow">Moda Circular</li>
         <li className="text-xl font-bold text-shadow">Lujo Accesible</li>
-      </ul>
-      <a
-        href="/dresses"
+        </ul>
+      <Link
+        to="/dresses"
         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 z-20"
       >
         Revisa nuestro catálogo de vestidos
-      </a>
+      </Link>
     </div>
   );
 };
