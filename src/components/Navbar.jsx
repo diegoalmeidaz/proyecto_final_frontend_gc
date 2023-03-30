@@ -4,7 +4,7 @@ import Context from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/logo_gc_sin_fondo_100x100.png";
 import "../styles/Navbar.css";
-import { decrypt } from "crypto-js/aes";
+// import { decrypt } from "crypto-js/aes";
 
 const Navbar = () => {
   const { user, isLoggedIn, handleLogout } = useContext(Context);

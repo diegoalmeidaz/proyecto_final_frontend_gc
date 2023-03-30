@@ -5,7 +5,7 @@ import {
   BrowserRouter,
   Route,
   Routes,
-  Outlet,
+  // Outlet,
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -40,11 +40,11 @@ const PrivateRoutes = ({ children }) => {
   return isAuth ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
-const RestrictedRoutes = () => {
-  const { isAuth } = useSelector((state) => state.auth);
+// const RestrictedRoutes = () => {
+//   const { isAuth } = useSelector((state) => state.auth);
 
-  return <>{!isAuth ? <Outlet /> : <Navigate to="/login" />}</>;
-};
+//   return <>{!isAuth ? <Outlet /> : <Navigate to="/login" />}</>;
+// };
 
 function App() {
   return (

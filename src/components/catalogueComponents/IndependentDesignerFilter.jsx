@@ -1,6 +1,6 @@
 import CollapsibleList from './CollapsibleList';
 import { useState } from 'react';
-import { useItems } from '../../core/hooks';
+// import { useItems } from '../../core/hooks';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 import { useSearchParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ export default function IndependentDesignerFilter() {
   const [search, setSearch] = useSearchParams();
   const independentDesigner = search.get('independentDesigner') === 'true';
   const [isChecked, setIsChecked] = useState(independentDesigner);
-  const getItems = useItems();
+  // const getItems = useItems();
 
   const onIndependentDesignerChange = (checked) => {
     setIsChecked(checked);
