@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { onGetItems } from "../../core/products";
+// import { onGetItems } from "../../core/products";
 import { formatPrice } from "../../core/utils";
 import { getUserInfo } from "../../core/api_users";
 import SearchBar from "../../components/catalogueComponents/SearchBar";
 import ColorFilters from "../../components/catalogueComponents/ColorFilters";
-import PriceFilter from "../../components/catalogueComponents/PriceFilter";
+// import PriceFilter from "../../components/catalogueComponents/PriceFilter";
 import SizeFilters from "../../components/catalogueComponents/SizeFilters";
 import BrandFilter from "../../components/catalogueComponents/BrandFilter";
-import IndependentDesignerFilter from "../../components/catalogueComponents/IndependentDesignerFilter";
+// import IndependentDesignerFilter from "../../components/catalogueComponents/IndependentDesignerFilter";
 import { useItems } from "../../core/hooks";
 
 function AdminCards() {
@@ -40,7 +40,7 @@ function AdminCards() {
     setFilteredProducts(visibleProducts);
   }, [visibleProducts]);
 
-  const [filtersVisible, setFiltersVisible] = useState(false);
+  // const [filtersVisible, setFiltersVisible] = useState(false);
 
   return (
     <div className="w-75 mx-auto items-container">

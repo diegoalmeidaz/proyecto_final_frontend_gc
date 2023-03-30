@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import Context from "../../context/Context";
 import {
   getOrders,
@@ -8,20 +8,14 @@ import {
 } from "../../core/api_orders";
 import { getUserInfoById } from "../../core/api_users";
 import "../../styles/AdminEditOrderDashboard.css";
-import { decrypt } from "../../core/encryption";
+// import { decrypt } from "../../core/encryption";
 
 const AdminOrderDashboard = () => {
   const { user } = useContext(Context);
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (user && user.role === "admin") {
-      fetchOrders();
-    }
-  }, [user]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const allOrders = await getOrders();
       const ordersWithDetails = await Promise.all(
@@ -37,7 +31,13 @@ const AdminOrderDashboard = () => {
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (user && user.role === "admin") {
+      fetchOrders();
+    }
+  }, [user, fetchOrders]);
 
   const [collapsedStatus, setCollapsedStatus] = useState({
     enProceso: true,

@@ -1,6 +1,6 @@
 // api_orders.js
 import { apiClient } from "./api_base_url";
-import { encryptData, decryptData, encryptOrderData } from "./encryption";
+import { decryptData, encryptOrderData } from "./encryption";
 
 // Obtener orden por ID
 export async function getOrderById(order_id) {

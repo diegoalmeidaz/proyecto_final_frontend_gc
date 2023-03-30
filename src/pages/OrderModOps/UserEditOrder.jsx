@@ -1,11 +1,11 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import Context from "../../context/Context";
 import "../../styles/EditOrder.css";
 import { useNavigate } from "react-router-dom";
 import {
   getOrderById,
   updateOrder,
-  getOrders,
+  // getOrders,
   getOrdersByUser,
 } from "../../core/api_orders";
 import { decryptData } from "../../core/encryption";
@@ -19,23 +19,23 @@ const EditOrder = () => {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [orderData, setOrderData] = useState(null);
 
-  useEffect(() => {
-    if (user && !isLoggedIn) {
-      alert("Debes iniciar sesión para modificar una orden");
-      navigate("/"); // Redirige al usuario a la página principal si no está logueado
-    } else if (user && isLoggedIn) {
-      loadOrders();
-    }
-  }, [user, isLoggedIn, navigate]);
-
-  const loadOrders = async () => {
+  const loadOrders = useCallback(async () => {
     try {
-      const fetchedOrders = await getOrdersByUser(user.user_id); // Cambiado a getOrdersByUser()
+      const fetchedOrders = await getOrdersByUser(user.user_id);
       setOrders(fetchedOrders.slice(0, 5));
     } catch (error) {
       console.error("Error loading orders:", error);
     }
-  };
+  }, [user]);
+  
+  useEffect(() => {
+    if (user && !isLoggedIn) {
+      alert("Debes iniciar sesión para modificar una orden");
+      navigate("/");
+    } else if (user && isLoggedIn) {
+      loadOrders();
+    }
+  }, [user, isLoggedIn, navigate, loadOrders]);
 
   const handleSelectOrder = async (orderId) => {
     try {

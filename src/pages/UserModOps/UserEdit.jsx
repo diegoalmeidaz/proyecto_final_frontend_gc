@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getUserInfo, updateUser, updatePassword } from "../../core/api_users";
-import { updateUserRole } from "../../core/api_userRoles";
+// import { updateUserRole } from "../../core/api_userRoles";
 import '../../styles/userEdit.css'
 // import {
 //   getUserRolesByUserId,

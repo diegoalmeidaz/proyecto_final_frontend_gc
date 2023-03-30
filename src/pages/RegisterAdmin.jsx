@@ -1,6 +1,6 @@
-import { onRegistrationAdmin } from '../core/api_users'
-import Context from "../context/Context";
 import React, { useEffect, useState, useContext } from "react";
+import { onRegistrationAdmin } from "../core/api_users";
+import Context from "../context/Context";
 
 const RegisterAdmin = () => {
   const [values, setValues] = useState({
@@ -16,7 +16,7 @@ const RegisterAdmin = () => {
 
   useEffect(() => {
     if (user && user.role === "admin") {
-      onSubmit();
+      registerAdmin();
     }
   }, [user]);
 
@@ -28,20 +28,24 @@ const RegisterAdmin = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-
+  const registerAdmin = async () => {
     try {
-      const { data } = await onRegistrationAdmin(values)
+      const { data } = await onRegistrationAdmin(values);
 
-      setError('')
-      setSuccess(data.message)
-      setValues({ email: '', password: '', username: '', name: '', lastname: '' })
+      setError('');
+      setSuccess(data.message);
+      setValues({ email: '', password: '', username: '', name: '', lastname: '' });
     } catch (error) {
-      setError(error.response.data.errors[0].msg)
-      setSuccess('')
+      setError(error.response.data.errors[0].msg);
+      setSuccess('');
     }
-  }
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    registerAdmin();
+  };
+
 
   return (
     <div

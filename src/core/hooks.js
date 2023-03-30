@@ -1,6 +1,6 @@
 import { getSingleItem } from './api_items';
 import { useQuery } from 'react-query';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { getUserInfo } from './api_users';
 import { apiClient } from './api_base_url';

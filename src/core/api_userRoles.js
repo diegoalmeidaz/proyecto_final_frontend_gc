@@ -1,5 +1,5 @@
 import { apiClient } from "./api_base_url";
-import { encryptData, decryptData, decryptUserRoles } from './encryption';
+import { encryptData, decryptUserRoles } from './encryption';
 
 
 export async function getUserRolesByUserId(userId) {

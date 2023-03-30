@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { QueryClient } from 'react-query';
 import { apiClient } from './api_base_url';
 
