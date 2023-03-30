@@ -70,7 +70,7 @@ const fields = [
 function AdminProductUpdate() {
   const { item_id } = useParams();
   const [productToUpdate, setProductToUpdate] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {

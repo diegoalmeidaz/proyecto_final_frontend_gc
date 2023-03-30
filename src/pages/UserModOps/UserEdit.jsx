@@ -20,10 +20,20 @@ const UserEdit = () => {
     phone: "",
   });
   const [address, setAddress] = useState("");
-  const [roleUser, setRoleUser] = useState(false);
-  const [roleRenter, setRoleRenter] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [, setRoleUser] = useState(false);
+  const [, setRoleRenter] = useState(false);
+  const [, setError] = useState(false);
+  const [, setSuccess] = useState(false);
+
+// original pre netlify
+  // const [address, setAddress] = useState("");
+  // const [roleUser, setRoleUser] = useState(false);
+  // const [roleRenter, setRoleRenter] = useState(false);
+  // const [error, setError] = useState(false);
+  // const [success, setSuccess] = useState(false);
+
+
+
 
   useEffect(() => {
     const fetchUser = async () => {

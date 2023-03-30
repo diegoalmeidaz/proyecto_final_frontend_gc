@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import SearchBar from '../components/catalogueComponents/SearchBar';
-import Select from '../components/Select';
+// import Select from '../components/Select';
 import { useItems } from '../core/hooks';
 import ItemsContainer from '../components/catalogueComponents/ItemsContainer';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import ColorFilters from '../components/catalogueComponents/ColorFilters';
 import PriceFilter from '../components/catalogueComponents/PriceFilter';
 import SizeFilters from '../components/catalogueComponents/SizeFilters';
@@ -13,7 +13,7 @@ import IndependentDesignerFilter from '../components/catalogueComponents/Indepen
 
 
 export default function Root() {
-  const [search, setSearch] = useSearchParams();
+  // const [search, setSearch] = useSearchParams();
   const getItems = useItems();
   const items = useMemo(() => getItems.data?.products ?? [], [getItems.data]);
   const itemCounts = useMemo(

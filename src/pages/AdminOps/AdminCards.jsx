@@ -12,7 +12,7 @@ import { useItems } from "../../core/hooks";
 
 function AdminCards() {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
 
@@ -36,9 +36,7 @@ function AdminCards() {
       : products.filter((product) => product.user_id === userId);
   }, [products, userRole, userId]);
 
-  useEffect(() => {
-    setFilteredProducts(visibleProducts);
-  }, [visibleProducts]);
+
 
   // const [filtersVisible, setFiltersVisible] = useState(false);
 

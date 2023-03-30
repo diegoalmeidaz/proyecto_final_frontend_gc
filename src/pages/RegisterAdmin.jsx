@@ -16,7 +16,7 @@ const RegisterAdmin = () => {
 
   useEffect(() => {
     if (user && user.role === "admin") {
-      registerAdmin();
+      ;
     }
   }, [user]);
 
