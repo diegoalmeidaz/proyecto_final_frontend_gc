@@ -8,7 +8,7 @@ export function encryptData(data) {
   console.log('Data to encrypt:', data); // Agrega esta línea
   const stringifiedData = JSON.stringify(data);
   const encryptedData = CryptoJS.AES.encrypt(stringifiedData, SECRET_KEY).toString();
-  console.log('Encrypted data:', encryptedData); // Agrega esta línea
+  //console.log('Encrypted data:', encryptedData); // Agrega esta línea
   return encryptedData;
 }
 
@@ -35,9 +35,9 @@ export function decryptData(encryptedData) {
 }
 
 export function decrypt(encryptedText) {
-  console.log("Encrypted text to decrypt:", encryptedText);
+  //console.log("Encrypted text to decrypt:", encryptedText);
   const bytes = CryptoJS.AES.decrypt(encryptedText, SECRET_KEY);
-  console.log("Decrypted bytes:", bytes);
+  //console.log("Decrypted bytes:", bytes);
   return bytes.toString(CryptoJS.enc.Utf8);
 }
 
@@ -63,9 +63,9 @@ export function decryptUserRoles(data) {
 
 
 export function encryptOrderData(data) {
-  console.log('CryptoJS:', CryptoJS);
-  console.log('SECRET_KEY:', SECRET_KEY);
-  console.log('Order data to encrypt:', data);
+  //console.log('CryptoJS:', CryptoJS);
+  //console.log('SECRET_KEY:', SECRET_KEY);
+  //console.log('Order data to encrypt:', data);
 
   // Prueba de encriptación
   const testEncryption = CryptoJS.AES.encrypt('test', SECRET_KEY).toString();
