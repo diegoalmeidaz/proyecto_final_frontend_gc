@@ -4,14 +4,18 @@ import Context from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/logo_gc_sin_fondo_100x100.png";
 import "../styles/Navbar.css";
-// import { decrypt } from "crypto-js/aes";
 
 const Navbar = () => {
   const { user, isLoggedIn, handleLogout } = useContext(Context);
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginState, setLoginState] = useState(isLoggedIn);
   const { cart } = useContext(Context);
   const total = cart.reduce((a, { count }) => a + count, 0);
+
+  useEffect(() => {
+    setLoginState(isLoggedIn);
+  }, [isLoggedIn]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -25,7 +29,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [isLoggedIn]);
+  }, [loginState]);
 
   return (
     <nav className="navbar">
@@ -38,7 +42,6 @@ const Navbar = () => {
           className={`hamburger ${mobileMenuOpen ? "opened" : ""}`}
           aria-label="toggle menu"
           onClick={toggleMobileMenu}
-          
         >
           <span></span>
           <span></span>
@@ -51,7 +54,7 @@ const Navbar = () => {
             👗 Vestidos en tu orden:{" "}
             {total.toLocaleString("es-CL", {})}
           </Link>
-          {isLoggedIn ? (
+          {loginState ? (
             <>
               <Link to="/dashboard" className="userInfo, mt-2 text-red-500 text-bold hover:text-red-800">
                 ❤️ Guapa {user ? user.name : ""}
@@ -72,6 +75,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-// comentario prueba subida github nuevo nombre repo
