@@ -9,10 +9,11 @@ import SizeFilters from "../../components/catalogueComponents/SizeFilters";
 import BrandFilter from "../../components/catalogueComponents/BrandFilter";
 // import IndependentDesignerFilter from "../../components/catalogueComponents/IndependentDesignerFilter";
 import { useItems } from "../../core/hooks";
+import { Link } from "react-router-dom";
 
 function AdminCards() {
   const [products, setProducts] = useState([]);
-  
+
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
 
@@ -35,8 +36,6 @@ function AdminCards() {
       ? products
       : products.filter((product) => product.user_id === userId);
   }, [products, userRole, userId]);
-
-
 
   // const [filtersVisible, setFiltersVisible] = useState(false);
 
@@ -93,11 +92,11 @@ function AdminCards() {
                   </div>
 
                   <div className="flex justify-center items-center space-y-4 pb-4">
-                    <a href={`/admin_product_update/${product.item_id}`}>
+                    <Link to={`/admin_product_update/${product.item_id}`}>
                       <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
                         Editar producto
                       </button>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
